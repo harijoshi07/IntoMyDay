@@ -3,7 +3,9 @@ package com.example.trackify.ui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -24,20 +26,21 @@ import com.example.trackify.ui.theme.Blue
 
 @Composable
 fun InfoComponent(
-    title: String, desc: String, icon: Int, backgroundColor: Color, modifier: Modifier = Modifier
+    title: String, desc: String, icon: Int, backgroundColor: Color, modifier: Modifier
 ) {
 
     Card(
+        modifier = modifier,
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor),
-        elevation = CardDefaults.cardElevation(0.dp)
+        elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(
-            verticalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp)
+                .padding(16.dp)
         ) {
             Text(text = title, style = infoTextStyle)
 
@@ -56,7 +59,11 @@ fun InfoComponent(
 @Composable
 private fun PrevInfoComponent() {
     InfoComponent(
-        title = "Completed", desc = "1/3", icon = R.drawable.ic_task_list, backgroundColor = Blue
+        title = "Completed",
+        desc = "1/3",
+        icon = R.drawable.ic_task_list,
+        backgroundColor = Blue,
+        modifier = Modifier
     )
 
 }
