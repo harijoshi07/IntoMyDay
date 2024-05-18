@@ -10,13 +10,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IntoMyDay"
+        android:theme="@style/Theme.Trackify"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.IntoMyDay">
+            android:theme="@style/Theme.Trackify">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,9 +26,9 @@
 
         <!--This meta-data entry is used to specify fonts
         that should be preloaded when the app starts.-->
-        <meta-data
+        <!--<meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:resource="@array/preloaded_fonts" />-->
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.intomyday
+package com.example.trackify
 
 import org.junit.Test
 

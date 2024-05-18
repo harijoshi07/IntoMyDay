@@ -13,7 +13,7 @@ import com.example.trackify.ui.screen.HomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun IntoMyDayApp(modifier: Modifier = Modifier) {
+fun TrackifyApp(modifier: Modifier = Modifier) {
 
     Scaffold(topBar = {
         TopAppBar(title = { Text(text = stringResource(id = R.string.app_name)) })
@@ -26,7 +26,7 @@ fun IntoMyDayApp(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-private fun PrevIntoMyDayApp() {
-    IntoMyDayApp()
+private fun PrevTrackifyApp() {
+    TrackifyApp()
 
 }

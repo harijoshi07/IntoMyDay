@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">IntoMyDay</string>
+    <string name="app_name">Trackify</string>
+    <string name="title">Hello</string>
+    <string name="desc">6/6 Tasks</string>
 </resources>

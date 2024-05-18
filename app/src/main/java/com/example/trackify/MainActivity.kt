@@ -8,16 +8,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.trackify.ui.theme.IntoMyDayTheme
+import com.example.trackify.ui.theme.TrackifyTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            IntoMyDayTheme {
+            TrackifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    IntoMyDayApp(modifier = Modifier.padding(innerPadding))
+                    TrackifyApp(modifier = Modifier.padding(innerPadding))
                 }
             }
         }

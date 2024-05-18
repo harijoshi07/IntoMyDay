@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "IntoMyDay"
+rootProject.name = "Trackify"
 include(":app")
  

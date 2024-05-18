@@ -1,17 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp")
+    id("com.google.devtools.ksp") version "1.9.20-1.0.14"
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = "com.example.intomyday"
+    namespace = "com.example.trackify"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.intomyday"
+        applicationId = "com.example.trackify"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -50,6 +50,13 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    ksp {
+        arg(
+            "room.schemaLocation",
+            "$projectDir/schemas"
+        )
+    }
 }
 
 dependencies {
@@ -76,6 +83,8 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
     // To use Kotlin Symbol Processing (KSP)
     ksp("androidx.room:room-compiler:$room_version")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
 
     //Compose Navigation
     val nav_version = "2.7.7"
@@ -84,6 +93,11 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+
+
+
+
 
 
 

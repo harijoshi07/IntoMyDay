@@ -1,11 +1,11 @@
-package com.example.intomyday.presentation
+package com.example.trackify.presentation
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.intomyday.R
+import com.example.trackify.R
 
 val fontRoboto = FontFamily(Font(R.font.roboto))
 val fontMontserrat = FontFamily(Font(R.font.montserrat))
