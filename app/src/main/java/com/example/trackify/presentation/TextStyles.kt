@@ -42,7 +42,7 @@ var taskTextStyle = TextStyle(
 
 
 var taskDescTextStyle = TextStyle(
-    fontSize = 18.sp,
+    fontSize = 10.sp,
     fontFamily = fontRoboto,
     fontWeight = FontWeight.Normal
 )

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -36,7 +37,7 @@ fun InfoComponent(
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
@@ -44,11 +45,17 @@ fun InfoComponent(
         ) {
             Text(text = title, style = infoTextStyle)
 
+            Spacer(modifier = Modifier.height(4.dp))
+
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(painter = painterResource(id = icon), contentDescription = "")
+                Icon(
+                    painter = painterResource(id = icon),
+                    contentDescription = "",
+                    modifier = Modifier.size(25.dp)
+                )
                 Text(text = desc, style = infoDescTextStyle)
             }
         }
