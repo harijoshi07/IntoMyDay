@@ -21,6 +21,7 @@ import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.ui.components.InfoComponent
 import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.Green
+import com.example.trackify.ui.theme.TrackifyTheme
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
@@ -63,7 +64,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             text = stringResource(R.string.today_s_task),
             style = h2TextStyle,
             color = Color.White,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(start = 8.dp, top = 16.dp, bottom = 16.dp)
         )
 
     }
@@ -73,5 +74,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun PrevHomeScreen() {
-    HomeScreen()
+    TrackifyTheme(darkTheme = true, dynamicColor = false) {
+        HomeScreen()
+    }
+
 }
