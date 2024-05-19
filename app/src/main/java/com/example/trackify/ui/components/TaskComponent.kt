@@ -29,13 +29,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.trackify.R
+import com.example.trackify.data.model.Task
 import com.example.trackify.presentation.taskDescTextStyle
 import com.example.trackify.presentation.taskTextStyle
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.LightGray
 
 @Composable
-fun TaskComponent(modifier: Modifier = Modifier) {
+fun TaskComponent(task: Task, modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,13 +61,23 @@ fun TaskComponent(modifier: Modifier = Modifier) {
                     onClick = { /*TODO*/ },
                     modifier = Modifier.size(32.dp)
                 ) {
-                    //to create a toggle circle
-                    Box(
-                        modifier = Modifier
-                            .size(20.dp)
-                            .border(width = 2.dp, color = LightGray, shape = CircleShape),
-                        contentAlignment = Alignment.Center
-                    ) { }
+                    if (task.isCompleted == true) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_check_circle),
+                            contentDescription = null,
+                            tint = Green,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    } else {
+                        //to create a toggle circle
+                        Box(
+                            modifier = Modifier
+                                .size(20.dp)
+                                .border(width = 2.dp, color = LightGray, shape = CircleShape),
+                            contentAlignment = Alignment.Center
+                        ) { }
+
+                    }
 
                 }
 
@@ -77,9 +88,9 @@ fun TaskComponent(modifier: Modifier = Modifier) {
                 ) {
                     Column(
                         verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.Start
                     ) {
-                        Text(text = "Learn Compose", style = taskTextStyle, color = Color.White)
+                        Text(text = task.title, style = taskTextStyle, color = Color.White)
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(2.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -92,7 +103,7 @@ fun TaskComponent(modifier: Modifier = Modifier) {
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = "20:00 - 22:00",
+                                text = task.getFormattedTime(),
                                 style = taskDescTextStyle,
                                 color = LightGray
                             )
@@ -117,5 +128,13 @@ fun TaskComponent(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun TaskComponentPreview() {
-    TaskComponent()
+    TaskComponent(
+        task = Task(
+            id = 0,
+            title = "Learn Compose",
+            isCompleted = false,
+            startTime = System.currentTimeMillis(),
+            endTime = System.currentTimeMillis() + 3600000
+        )
+    )
 }
