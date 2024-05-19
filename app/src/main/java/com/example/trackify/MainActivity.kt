@@ -15,7 +15,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TrackifyTheme {
+            TrackifyTheme(
+                darkTheme = true,
+                dynamicColor = false
+            ) {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     TrackifyApp(modifier = Modifier.padding(innerPadding))
                 }
