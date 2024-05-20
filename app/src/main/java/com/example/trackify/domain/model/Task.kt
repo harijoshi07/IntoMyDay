@@ -1,4 +1,4 @@
-package com.example.trackify.data.model
+package com.example.trackify.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
