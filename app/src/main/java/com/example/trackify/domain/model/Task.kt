@@ -8,7 +8,7 @@ import java.util.Locale
 
 @Entity(tableName = "tasks_tbl")
 data class Task(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int=0,
     val title: String,
     val isCompleted: Boolean,
     val startTime: Long,

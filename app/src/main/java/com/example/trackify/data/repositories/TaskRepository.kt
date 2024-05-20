@@ -5,6 +5,10 @@ import com.example.trackify.domain.model.Task
 import kotlinx.coroutines.flow.Flow
 
 class TaskRepository(private val dao: TaskDao) {
+
+    //#How data gets inserted?
+    //acts as a mediator between the DAO and the ViewModel
+    //2. it forwards the responsibility to insert data to the DAO
     suspend fun insert(task: Task) {
         dao.insertTask(task)
     }

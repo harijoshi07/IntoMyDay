@@ -10,6 +10,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
+    //#How data gets inserted?
+    //3. the @Insert annotation indicates to Room that
+    // this function is intended to insert a Task object into the database.
+    //The actual implementation of the insertion operation is provided by Room behind the scenes.
     @Insert
     suspend fun insertTask(task: Task) {
 
