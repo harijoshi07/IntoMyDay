@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.trackify.ui.theme.TrackifyTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,9 +21,10 @@ class MainActivity : ComponentActivity() {
                 darkTheme = true,
                 dynamicColor = false
             ) {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TrackifyApp(modifier = Modifier.padding(innerPadding))
-                }
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    TrackifyApp(modifier = Modifier.padding(innerPadding))
+//                }
+                TrackifyApp()
             }
         }
     }
