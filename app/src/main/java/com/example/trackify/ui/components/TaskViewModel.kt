@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackify.data.repositories.TaskRepository
 import com.example.trackify.domain.model.Task
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class TaskViewModel @Inject constructor(private val repository: TaskRepository) : ViewModel() {
 
     //mutableStateOf manages the state of Task object reactively
@@ -22,6 +24,7 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
         private set
 
     var tasks = repository.getAllTasks()
+    var taskList = repository.getAllTasks()
     private val deletedTask: Task? = null
 
     //inserts a new task into the database via the repository

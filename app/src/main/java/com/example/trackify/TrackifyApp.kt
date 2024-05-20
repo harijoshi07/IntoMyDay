@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.trackify.presentation.fontRoboto
 import com.example.trackify.presentation.h1TextStyle
+import com.example.trackify.ui.components.TaskViewModel
 import com.example.trackify.ui.screen.HomeScreen
 import com.example.trackify.ui.theme.LightGray
 import com.example.trackify.ui.theme.TrackifyTheme
@@ -37,7 +38,7 @@ import com.example.trackify.ui.theme.Yellow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TrackifyApp(modifier: Modifier = Modifier) {
+fun TrackifyApp(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
 
     Scaffold(
         topBar = {
@@ -87,7 +88,7 @@ fun TrackifyApp(modifier: Modifier = Modifier) {
         }
     ) {
         Column(modifier = Modifier.padding(it)) {
-            HomeScreen()
+            HomeScreen(viewModel)
         }
 
     }
@@ -98,7 +99,7 @@ fun TrackifyApp(modifier: Modifier = Modifier) {
 @Composable
 private fun PrevTrackifyApp() {
     TrackifyTheme(darkTheme = true, dynamicColor = false) {
-        TrackifyApp()
+        //TrackifyApp()
     }
 
 

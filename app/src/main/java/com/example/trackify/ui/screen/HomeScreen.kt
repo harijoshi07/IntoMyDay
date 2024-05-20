@@ -10,22 +10,28 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.trackify.R
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.ui.components.EmptyScreenComponent
 import com.example.trackify.ui.components.InfoComponent
+import com.example.trackify.ui.components.TaskViewModel
 import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.TrackifyTheme
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
+
+    //val tasks by viewModel.taskList.collectAsStateWithLifecycle(initialValue = emptyList())
 
     Column(
         verticalArrangement = Arrangement.Top,
@@ -61,15 +67,19 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 
         }
 
-        Text(
-            text = stringResource(R.string.today_s_task),
-            style = h2TextStyle,
-            color = Color.White,
-            modifier = Modifier.padding(start = 8.dp, top = 16.dp, bottom = 16.dp)
-        )
+
+       /* if (tasks.isEmpty()) {
+            EmptyScreenComponent()
+        } else {
+            Text(
+                text = stringResource(R.string.today_s_task),
+                style = h2TextStyle,
+                color = Color.White,
+                modifier = Modifier.padding(start = 8.dp, top = 16.dp, bottom = 16.dp)
+            )
+        }*/
 
         EmptyScreenComponent()
-
     }
 
 }
@@ -78,7 +88,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun PrevHomeScreen() {
     TrackifyTheme(darkTheme = true, dynamicColor = false) {
-        HomeScreen()
+        // HomeScreen()
     }
 
 }
