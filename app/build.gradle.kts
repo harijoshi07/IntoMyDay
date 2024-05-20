@@ -62,6 +62,8 @@ android {
     kapt {
         correctErrorTypes = true
     }
+
+
 }
 
 dependencies {
@@ -96,15 +98,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
-
-
-
-
-
-
-
-
-
+    implementation("com.google.dagger:hilt-android:2.51")
+    kapt("com.google.dagger:hilt-android-compiler:2.51")
 }
