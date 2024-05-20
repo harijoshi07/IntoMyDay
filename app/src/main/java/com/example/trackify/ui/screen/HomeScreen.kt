@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.trackify.R
 import com.example.trackify.presentation.h2TextStyle
+import com.example.trackify.ui.components.EmptyScreenComponent
 import com.example.trackify.ui.components.InfoComponent
 import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.Green
@@ -66,6 +67,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             color = Color.White,
             modifier = Modifier.padding(start = 8.dp, top = 16.dp, bottom = 16.dp)
         )
+
+        EmptyScreenComponent()
 
     }
 

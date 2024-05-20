@@ -3,4 +3,5 @@
     <string name="title">Hello</string>
     <string name="desc">6/6 Tasks</string>
     <string name="today_s_task">Today\'s Tasks</string>
+    <string name="no_tasks">No Tasks</string>
 </resources>
