@@ -1,4 +1,4 @@
-package com.example.trackify.repositories
+package com.example.trackify.data.repositories
 
 import com.example.trackify.data.local.TaskDao
 import com.example.trackify.domain.model.Task

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.trackify.data.local.TaskDao
 import com.example.trackify.data.local.TaskDatabase
-import com.example.trackify.repositories.TaskRepository
+import com.example.trackify.data.repositories.TaskRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
