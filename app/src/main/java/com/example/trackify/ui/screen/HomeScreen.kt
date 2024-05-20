@@ -31,7 +31,7 @@ import com.example.trackify.ui.theme.TrackifyTheme
 @Composable
 fun HomeScreen(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
 
-    //val tasks by viewModel.taskList.collectAsStateWithLifecycle(initialValue = emptyList())
+    val tasks = viewModel.taskList.collectAsState().value
 
     Column(
         verticalArrangement = Arrangement.Top,
@@ -68,7 +68,7 @@ fun HomeScreen(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
         }
 
 
-       /* if (tasks.isEmpty()) {
+        if (tasks.isEmpty()) {
             EmptyScreenComponent()
         } else {
             Text(
@@ -77,9 +77,9 @@ fun HomeScreen(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
                 color = Color.White,
                 modifier = Modifier.padding(start = 8.dp, top = 16.dp, bottom = 16.dp)
             )
-        }*/
+        }
 
-        EmptyScreenComponent()
+        //EmptyScreenComponent()
     }
 
 }

@@ -86,7 +86,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //lifecycle
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose")
 
     //Room
     val room_version = "2.6.1"

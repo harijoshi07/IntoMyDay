@@ -8,6 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.trackify.data.repositories.TaskRepository
 import com.example.trackify.domain.model.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,7 +27,15 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
         private set
 
     var tasks = repository.getAllTasks()
-    var taskList = repository.getAllTasks()
+
+    val taskList: StateFlow<List<Task>> = repository.getAllTasks()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+
     private val deletedTask: Task? = null
 
     //inserts a new task into the database via the repository
