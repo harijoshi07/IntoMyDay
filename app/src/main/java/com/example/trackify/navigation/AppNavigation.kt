@@ -10,14 +10,14 @@ import com.example.trackify.ui.components.TaskViewModel
 import com.example.trackify.ui.screen.HomeScreen
 
 @Composable
-fun AppNavigation(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
+fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
 
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Routes.TrackifyScreen.name) {
         composable(Routes.TrackifyScreen.name) {
             //HomeScreen(viewModel)
-            TrackifyApp(viewModel)
+            TrackifyApp(taskViewModel)
         }
     }
 

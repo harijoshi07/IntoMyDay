@@ -39,7 +39,9 @@ import com.example.trackify.ui.theme.TrackifyTheme
 @Composable
 fun HomeScreen(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
 
-    val tasks = taskViewModel.taskList.collectAsState().value
+
+    //val tasks by taskViewModel.taskList.collectAsStateWithLifecycle(initialValue = emptyList())
+    val tasks by taskViewModel.taskList.collectAsState()
     val totalTasks = tasks.size
     val completedTasks = tasks.count { it.isCompleted }
 

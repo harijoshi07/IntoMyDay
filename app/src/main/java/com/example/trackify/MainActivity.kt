@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 dynamicColor = false
             ) {
 
-                AppNavigation(viewModel = taskViewModel)
+                AppNavigation(taskViewModel = taskViewModel)
             }
         }
     }
