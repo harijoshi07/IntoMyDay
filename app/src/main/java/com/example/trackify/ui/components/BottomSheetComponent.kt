@@ -150,7 +150,7 @@ fun BottomSheetComponent(
                     modifier = Modifier.focusRequester(focusRequester),
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Sentences,
-                        imeAction = ImeAction.Next
+                        imeAction = ImeAction.Done
                     )
                 )
 

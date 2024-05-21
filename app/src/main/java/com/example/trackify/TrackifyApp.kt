@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,7 +58,7 @@ fun TrackifyApp(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
 
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState()
-    var isBottomSheetVisible by remember { mutableStateOf(false) }
+    var isBottomSheetVisible by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -95,6 +96,19 @@ fun TrackifyApp(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
             FloatingActionButton(
                 onClick = {
                     isBottomSheetVisible = true
+
+//                    //todo : remove after testing
+//                    (1..10).map { index ->
+//                        taskViewModel.insertTask(
+//                            Task(
+//                                id = index, title = "Task $index", isCompleted = index % 2 == 0,
+//                                startTime = System.currentTimeMillis(),
+//                                endTime = System.currentTimeMillis() + (index * 2) * 3600000
+//                            )
+//                        )
+//                    }
+
+
                 },
                 containerColor = MaterialTheme.colorScheme.secondary,
                 contentColor = Color.White
