@@ -3,11 +3,15 @@ package com.example.trackify.ui.screen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,6 +27,7 @@ import com.example.trackify.R
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.ui.components.EmptyScreenComponent
 import com.example.trackify.ui.components.InfoComponent
+import com.example.trackify.ui.components.TaskComponent
 import com.example.trackify.ui.components.TaskViewModel
 import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.Green
@@ -32,6 +37,9 @@ import com.example.trackify.ui.theme.TrackifyTheme
 fun HomeScreen(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
 
     val tasks = viewModel.taskList.collectAsState().value
+    val totalTasks = tasks.size
+    val completedTasks = tasks.count { it.isCompleted }
+
 
     Column(
         verticalArrangement = Arrangement.Top,
@@ -49,7 +57,7 @@ fun HomeScreen(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
         ) {
             InfoComponent(
                 title = "Completed",
-                desc = "3/6",
+                desc = "$completedTasks/$totalTasks",
                 icon = R.drawable.ic_task_list,
                 backgroundColor = Green,
                 modifier = Modifier.weight(1f)
@@ -64,7 +72,6 @@ fun HomeScreen(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
                 modifier = Modifier.weight(1f)
 
             )
-
         }
 
 
@@ -77,9 +84,23 @@ fun HomeScreen(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
                 color = Color.White,
                 modifier = Modifier.padding(start = 8.dp, top = 16.dp, bottom = 16.dp)
             )
-        }
 
-        //EmptyScreenComponent()
+            //items() fun is used to fill the Column with data
+            //contains two parameters: items and key
+            //items: list of items to be displayed
+            //key: unique identifier for each item
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp, 0.dp)
+            ) {
+                items(items = tasks, key = { it.id }) {
+                    TaskComponent(task = it)
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
+            }
+
+        }
     }
 
 }

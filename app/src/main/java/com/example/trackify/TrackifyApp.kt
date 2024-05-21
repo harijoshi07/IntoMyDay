@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.fontRoboto
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.ui.components.TaskViewModel
@@ -74,7 +75,21 @@ fun TrackifyApp(viewModel: TaskViewModel, modifier: Modifier = Modifier) {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    //todo: remove after testing
+                    (1..10).map { index ->
+                        viewModel.insertTask(
+                            Task(
+                                id = index,
+                                title = "Task $index",
+                                isCompleted = index % 2 == 0,
+                                startTime = System.currentTimeMillis(),
+                                endTime = System.currentTimeMillis() + 3600000
+                            )
+                        )
+                    }
+
+                },
                 containerColor = MaterialTheme.colorScheme.secondary,
                 contentColor = Color.White
             ) {
