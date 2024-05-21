@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.trackify"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -104,4 +104,7 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:2.51")
     kapt("com.google.dagger:hilt-android-compiler:2.51")
+
+    //Wheel Picker Compose
+    implementation ("com.github.commandiron:WheelPickerCompose:1.1.11")
 }
