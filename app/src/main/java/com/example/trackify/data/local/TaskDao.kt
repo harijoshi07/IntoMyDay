@@ -15,19 +15,13 @@ interface TaskDao {
     // this function is intended to insert a Task object into the database.
     //The actual implementation of the insertion operation is provided by Room behind the scenes.
     @Insert
-    suspend fun insertTask(task: Task) {
-
-    }
+    suspend fun insertTask(task: Task)
 
     @Update
-    suspend fun updateTask(task: Task) {
-
-    }
+    suspend fun updateTask(task: Task)
 
     @Delete
-    suspend fun deleteTask(task: Task) {
-
-    }
+    suspend fun deleteTask(task: Task)
 
     @Query("SELECT * FROM tasks_tbl WHERE id=:id")
     //With Flow as the return type, you receive notification whenever the data in the database changes.
