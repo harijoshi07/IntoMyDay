@@ -106,5 +106,6 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.51")
 
     //Wheel Picker Compose
-    implementation ("com.github.commandiron:WheelPickerCompose:1.1.11")
+    implementation("com.github.commandiron:WheelPickerCompose:1.1.11")
+
 }
