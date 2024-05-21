@@ -30,15 +30,20 @@ import com.example.trackify.R
 import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.taskDescTextStyle
 import com.example.trackify.presentation.taskTextStyle
+import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.LightGray
+import com.example.trackify.ui.theme.Red
+import com.example.trackify.ui.theme.Yellow
 
 @Composable
 fun TaskComponent(task: Task, modifier: Modifier = Modifier) {
+
+    val randomColor = listOf(Green, Blue, Red, Yellow).random()
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Green, RoundedCornerShape(8.dp))
+            .background(color = randomColor, shape = RoundedCornerShape(8.dp))
             .padding(start = 10.dp)
     ) {
         Box(
