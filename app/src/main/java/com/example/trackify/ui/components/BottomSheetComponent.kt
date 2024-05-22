@@ -76,7 +76,7 @@ import kotlin.math.sin
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheetComponent(
-    scope:CoroutineScope,
+    scope: CoroutineScope,
     isBottomSheetVisible: Boolean,
     sheetState: SheetState,
     onDismiss: () -> Unit,
@@ -141,6 +141,8 @@ fun BottomSheetComponent(
                     singleLine = true,
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = Blue200,
+                        unfocusedContainerColor = Blue200,
+                        disabledContainerColor = Blue200,
                         cursorColor = Color.White
                     ),
                     textStyle = TextStyle.Default.copy(fontFamily = fontRoboto),
