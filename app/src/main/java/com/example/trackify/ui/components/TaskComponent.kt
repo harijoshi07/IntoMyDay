@@ -37,7 +37,11 @@ import com.example.trackify.ui.theme.Red
 import com.example.trackify.ui.theme.Yellow
 
 @Composable
-fun TaskComponent(task: Task, modifier: Modifier = Modifier) {
+fun TaskComponent(
+    task: Task,
+    onUpdate: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
 
     val randomColor = listOf(Green, Blue, Red, Yellow).random()
     Box(
@@ -115,12 +119,15 @@ fun TaskComponent(task: Task, modifier: Modifier = Modifier) {
                     }
 
 
-                    Icon(
-                        imageVector = Icons.Default.MoreVert,
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp),
-                        tint = LightGray
-                    )
+                    IconButton(onClick = { onUpdate(task.id) }) {
+                        Icon(
+                            imageVector = Icons.Default.MoreVert,
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp),
+                            tint = LightGray
+                        )
+
+                    }
                 }
             }
         }
@@ -128,16 +135,16 @@ fun TaskComponent(task: Task, modifier: Modifier = Modifier) {
 
 }
 
-@Preview
-@Composable
-private fun TaskComponentPreview() {
-    TaskComponent(
-        task = Task(
-            id = 0,
-            title = "Learn Compose",
-            isCompleted = false,
-            startTime = System.currentTimeMillis(),
-            endTime = System.currentTimeMillis() + 3600000
-        )
-    )
-}
+//@Preview
+//@Composable
+//private fun TaskComponentPreview() {
+//    TaskComponent(
+//        task = Task(
+//            id = 0,
+//            title = "Learn Compose",
+//            isCompleted = false,
+//            startTime = System.currentTimeMillis(),
+//            endTime = System.currentTimeMillis() + 3600000
+//        )
+//    )
+//}
