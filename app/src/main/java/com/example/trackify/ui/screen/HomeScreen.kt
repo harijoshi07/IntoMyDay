@@ -37,7 +37,11 @@ import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.TrackifyTheme
 
 @Composable
-fun HomeScreen(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
+fun HomeScreen(
+    taskViewModel: TaskViewModel,
+    onUpdate: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
 
 
     //val tasks by taskViewModel.taskList.collectAsStateWithLifecycle(initialValue = emptyList())
@@ -100,7 +104,10 @@ fun HomeScreen(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
                     .padding(16.dp, 0.dp)
             ) {
                 items(items = tasks, key = { it.id }) {
-                    TaskComponent(task = it)
+                    TaskComponent(
+                        task = it,
+                        onUpdate = onUpdate
+                    )
                     Spacer(modifier = Modifier.height(10.dp))
                 }
             }

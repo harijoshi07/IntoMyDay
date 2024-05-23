@@ -54,7 +54,12 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TrackifyApp(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
+fun TrackifyApp(
+    taskViewModel: TaskViewModel,
+    onUpdate: (Int) -> Unit,
+    onAdd: () -> Unit,
+    modifier: Modifier = Modifier
+) {
 
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState()
@@ -95,19 +100,7 @@ fun TrackifyApp(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    isBottomSheetVisible = true
-
-//                    //todo : remove after testing
-//                    (1..10).map { index ->
-//                        taskViewModel.insertTask(
-//                            Task(
-//                                id = index, title = "Task $index", isCompleted = index % 2 == 0,
-//                                startTime = System.currentTimeMillis(),
-//                                endTime = System.currentTimeMillis() + (index * 2) * 3600000
-//                            )
-//                        )
-//                    }
-
+                    onAdd()
 
                 },
                 containerColor = MaterialTheme.colorScheme.secondary,
@@ -132,7 +125,10 @@ fun TrackifyApp(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
     ) {
 
         Column(modifier = Modifier.padding(it)) {
-            HomeScreen(taskViewModel)
+            HomeScreen(
+                taskViewModel,
+                onUpdate
+            )
         }
 
     }
