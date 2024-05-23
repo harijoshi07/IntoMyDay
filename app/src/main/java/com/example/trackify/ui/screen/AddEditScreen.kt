@@ -14,16 +14,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledIconToggleButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -35,6 +31,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -47,8 +44,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -61,10 +56,8 @@ import com.commandiron.wheel_picker_compose.core.TimeFormat
 import com.example.trackify.R
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.presentation.h2TextStyle
-import com.example.trackify.presentation.taskDescTextStyle
 import com.example.trackify.presentation.taskTextStyle
-import com.example.trackify.ui.theme.Blue200
-import com.example.trackify.ui.theme.Blue500
+import com.example.trackify.ui.components.TaskViewModel
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.Red
 import com.example.trackify.ui.theme.TrackifyTheme
@@ -72,16 +65,31 @@ import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddEditScreen(modifier: Modifier = Modifier) {
+fun AddEditScreen(
+    taskViewModel: TaskViewModel,
+    onBack: () -> Unit,
+    taskId: Int? = null,
+    modifier: Modifier = Modifier
+) {
 
-    //TODO: remove after testing
-    val taskId: Int? = null
+    val task = taskViewModel.task
+
+    var appBarTitle = stringResource(R.string.add_task)
+    var buttonTitle = stringResource(R.string.add_task)
+
+    taskId?.let {
+        appBarTitle = stringResource(R.string.edit_task)
+        buttonTitle = stringResource(R.string.update_task)
+
+        LaunchedEffect(
+            key1 = true,
+            block = {
+                taskViewModel.getTaskById(id = taskId)
+            }
+        )
+    }
 
     val context = LocalContext.current
-
-    val appBarTitle = if (taskId == null) {
-        stringResource(R.string.add_task)
-    } else stringResource(R.string.edit_task)
 
 
     var taskTitle by remember {
@@ -108,13 +116,15 @@ fun AddEditScreen(modifier: Modifier = Modifier) {
             ), title = {
                 Text(text = appBarTitle, style = h1TextStyle)
             }, navigationIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { onBack() }) {
                     Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "")
                 }
             },
             actions = {
                 if (taskId != null) {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        taskViewModel.deleteTask(task)
+                    }) {
                         Icon(imageVector = Icons.Rounded.Delete, contentDescription = "")
                     }
                 }
@@ -145,8 +155,8 @@ fun AddEditScreen(modifier: Modifier = Modifier) {
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = MaterialTheme.colorScheme.secondary,
                         unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                        focusedTextColor = MaterialTheme.colorScheme.secondary,
-                        unfocusedTextColor = MaterialTheme.colorScheme.secondary,
+                        //focusedTextColor = MaterialTheme.colorScheme.secondary,
+                        //unfocusedTextColor = MaterialTheme.colorScheme.secondary,
                         cursorColor = Color.White
                     ),
                     keyboardOptions = KeyboardOptions(
@@ -262,8 +272,7 @@ fun AddEditScreen(modifier: Modifier = Modifier) {
                         TextButton(
                             onClick = {
                                 if (taskTitle.isNotEmpty()) {
-                                    //taskViewModel.addTask(taskTitle, taskStartTime, taskEndTime, isTaskReminderOn)
-                                    taskTitle = ""
+                                    taskViewModel.insertTask(task)
                                 } else if (taskStartTime >= taskEndTime) {
                                     Toast.makeText(
                                         context,
@@ -288,7 +297,7 @@ fun AddEditScreen(modifier: Modifier = Modifier) {
                             )
                         ) {
                             Text(
-                                text = appBarTitle,
+                                text = buttonTitle,
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
@@ -308,7 +317,7 @@ private fun AddEditScreenPreview() {
     TrackifyTheme(
         darkTheme = true, dynamicColor = false
     ) {
-        AddEditScreen()
+        // AddEditScreen()
     }
 
 }
