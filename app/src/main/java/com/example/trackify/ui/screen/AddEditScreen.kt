@@ -68,7 +68,7 @@ import java.time.LocalTime
 fun AddEditScreen(
     taskViewModel: TaskViewModel,
     onBack: () -> Unit,
-    taskId: Int? = null,
+    taskId: Int = -1,
     modifier: Modifier = Modifier
 ) {
 
@@ -78,15 +78,17 @@ fun AddEditScreen(
     var buttonTitle = stringResource(R.string.add_task)
 
     taskId?.let {
-        appBarTitle = stringResource(R.string.edit_task)
-        buttonTitle = stringResource(R.string.update_task)
+        if (taskId != -1) {
+            appBarTitle = stringResource(R.string.edit_task)
+            buttonTitle = stringResource(R.string.update_task)
 
-        LaunchedEffect(
-            key1 = true,
-            block = {
-                taskViewModel.getTaskById(id = taskId)
-            }
-        )
+            LaunchedEffect(
+                key1 = true,
+                block = {
+                    taskViewModel.getTaskById(id = taskId)
+                }
+            )
+        }
     }
 
     val context = LocalContext.current

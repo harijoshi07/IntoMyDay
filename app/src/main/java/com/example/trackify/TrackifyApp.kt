@@ -56,8 +56,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun TrackifyApp(
     taskViewModel: TaskViewModel,
-    onUpdate: (Int) -> Unit,
-    onAdd: () -> Unit,
+    onAddEdit: (id:Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -100,7 +99,7 @@ fun TrackifyApp(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    onAdd()
+                    onAddEdit(-1)
 
                 },
                 containerColor = MaterialTheme.colorScheme.secondary,
@@ -127,7 +126,7 @@ fun TrackifyApp(
         Column(modifier = Modifier.padding(it)) {
             HomeScreen(
                 taskViewModel,
-                onUpdate
+                onAddEdit
             )
         }
 
