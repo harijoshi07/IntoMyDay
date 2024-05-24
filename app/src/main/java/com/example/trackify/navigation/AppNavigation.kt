@@ -9,7 +9,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.trackify.TrackifyApp
 import com.example.trackify.ui.components.TaskViewModel
-import com.example.trackify.ui.screen.AddEditScreen
+import com.example.trackify.ui.screen.AddTaskScreen
+import com.example.trackify.ui.screen.EditTaskScreen
+import com.example.trackify.ui.screen.HomeScreen
 
 @Composable
 fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
@@ -21,19 +23,30 @@ fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
             //HomeScreen(viewModel)
             TrackifyApp(
                 taskViewModel,
-                onAddEdit={id->
-                    navController.navigate(route="${Routes.AddEditScreen.name}/$id")
+                onAddTask = {
+                    navController.navigate(route = Routes.AddTaskScreen.name)
+                },
+                onEditTask = { id ->
+                    navController.navigate(route = "${Routes.EditTaskScreen.name}/$id")
                 }
             )
         }
+
+        composable(route = Routes.AddTaskScreen.name) {
+            AddTaskScreen(
+                taskViewModel = taskViewModel,
+                onClose = { navController.popBackStack() }
+            )
+        }
+
         composable(
-            route = "${Routes.AddEditScreen.name}/{id}",
+            route = "${Routes.EditTaskScreen.name}/{id}",
             arguments = listOf(navArgument("id") {
                 type = NavType.IntType
             })
         ) { navBackStackEntry ->
             navBackStackEntry.arguments?.getInt("id").let { id ->
-                AddEditScreen(
+                EditTaskScreen(
                     taskViewModel = taskViewModel,
                     onBack = { navController.popBackStack() },
                     taskId = id!!

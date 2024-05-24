@@ -39,7 +39,7 @@ import com.example.trackify.ui.theme.TrackifyTheme
 @Composable
 fun HomeScreen(
     taskViewModel: TaskViewModel,
-    onAddEdit: (Int) -> Unit,
+    onEditTask: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -106,7 +106,7 @@ fun HomeScreen(
                 items(items = tasks, key = { it.id }) {
                     TaskComponent(
                         task = it,
-                        onUpdate = onAddEdit
+                        onUpdate = onEditTask
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                 }
