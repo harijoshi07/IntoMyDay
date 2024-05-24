@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.sp
 import com.commandiron.wheel_picker_compose.WheelTimePicker
 import com.commandiron.wheel_picker_compose.core.TimeFormat
 import com.example.trackify.R
+import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.presentation.taskTextStyle
@@ -61,38 +62,15 @@ import com.example.trackify.ui.components.TaskViewModel
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.Red
 import com.example.trackify.ui.theme.TrackifyTheme
+import kotlinx.coroutines.job
 import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddEditScreen(
+fun AddScreen(
     taskViewModel: TaskViewModel,
-    onBack: () -> Unit,
-    taskId: Int = -1,
-    modifier: Modifier = Modifier
+    onClose: () -> Unit,
 ) {
-
-    val task = taskViewModel.task
-
-    var appBarTitle = stringResource(R.string.add_task)
-    var buttonTitle = stringResource(R.string.add_task)
-
-    taskId?.let {
-        if (taskId != -1) {
-            appBarTitle = stringResource(R.string.edit_task)
-            buttonTitle = stringResource(R.string.update_task)
-
-            LaunchedEffect(
-                key1 = true,
-                block = {
-                    taskViewModel.getTaskById(id = taskId)
-                }
-            )
-        }
-    }
-
-    val context = LocalContext.current
-
 
     var taskTitle by remember {
         mutableStateOf("")
@@ -109,34 +87,50 @@ fun AddEditScreen(
         mutableStateOf(true)
     }
 
+    val task = Task(
+        0,
+        taskTitle,
+        false,
+        taskStartTime,
+        taskEndTime
+    )
+
+    val context = LocalContext.current
+    val focusRequester = FocusRequester()
+
 
     Scaffold(topBar = {
         TopAppBar(
             modifier = Modifier.padding(8.dp),
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.background
-            ), title = {
-                Text(text = appBarTitle, style = h1TextStyle)
-            }, navigationIcon = {
-                IconButton(onClick = { onBack() }) {
+            ),
+            title = {
+                Text(text = stringResource(id = R.string.add_task), style = h1TextStyle)
+            },
+            navigationIcon = {
+                IconButton(onClick = { onClose() }) {
                     Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "")
                 }
             },
-            actions = {
-                if (taskId != null) {
-                    IconButton(onClick = {
-                        taskViewModel.deleteTask(task)
-                    }) {
-                        Icon(imageVector = Icons.Rounded.Delete, contentDescription = "")
-                    }
+
+
+            )
+    }) {
+
+        LaunchedEffect(
+            key1 = true,
+            block = {
+                coroutineContext.job.invokeOnCompletion {
+                    focusRequester.requestFocus()
                 }
             }
         )
-    }) {
+
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
         ) {
@@ -275,6 +269,7 @@ fun AddEditScreen(
                             onClick = {
                                 if (taskTitle.isNotEmpty()) {
                                     taskViewModel.insertTask(task)
+                                    onClose()
                                 } else if (taskStartTime >= taskEndTime) {
                                     Toast.makeText(
                                         context,
@@ -299,7 +294,7 @@ fun AddEditScreen(
                             )
                         ) {
                             Text(
-                                text = buttonTitle,
+                                text = stringResource(id = R.string.add_task),
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
