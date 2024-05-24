@@ -3,6 +3,7 @@ package com.example.trackify.data.local
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.trackify.domain.model.Task
@@ -14,10 +15,10 @@ interface TaskDao {
     //3. the @Insert annotation indicates to Room that
     // this function is intended to insert a Task object into the database.
     //The actual implementation of the insertion operation is provided by Room behind the scenes.
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(task: Task)
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateTask(task: Task)
 
     @Delete
