@@ -100,7 +100,7 @@ fun TrackifyApp(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    onAddTask
+                    onAddTask()
 
                 },
                 containerColor = MaterialTheme.colorScheme.secondary,

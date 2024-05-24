@@ -86,13 +86,6 @@ fun AddTaskScreen(
         mutableStateOf(true)
     }
 
-    val task = Task(
-        0,
-        taskTitle,
-        false,
-        taskStartTime,
-        taskEndTime
-    )
 
     val context = LocalContext.current
     val focusRequester = FocusRequester()
@@ -158,7 +151,7 @@ fun AddTaskScreen(
                         keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
                     ),
                     modifier = Modifier
-                        .focusRequester(FocusRequester())
+                        .focusRequester(focusRequester)
                         .fillMaxWidth()
                         .padding(horizontal = 32.dp, vertical = 8.dp)
                 )
@@ -267,6 +260,13 @@ fun AddTaskScreen(
                         TextButton(
                             onClick = {
                                 if (taskTitle.isNotEmpty()) {
+                                    val task = Task(
+                                        0,
+                                        taskTitle,
+                                        false,
+                                        taskStartTime,
+                                        taskEndTime
+                                    )
                                     taskViewModel.insertTask(task)
                                     onClose()
                                 } else if (taskStartTime >= taskEndTime) {

@@ -8,9 +8,11 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.trackify.ui.components.TaskViewModel
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,10 +27,12 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
@@ -47,11 +51,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.commandiron.wheel_picker_compose.WheelTimePicker
 import com.commandiron.wheel_picker_compose.core.TimeFormat
 import com.example.trackify.R
+import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.fontRoboto
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.presentation.h2TextStyle
@@ -114,7 +120,7 @@ fun EditTaskScreen(
                     )
                 }
             })
-    }) { innerPadding ->
+    }) { it ->
 
         LaunchedEffect(key1 = true,
             block = {
@@ -124,171 +130,187 @@ fun EditTaskScreen(
             })
 
         Column(
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+                .padding(it)
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                TextField(
+                OutlinedTextField(
                     value = taskTitle,
-                    singleLine = true,
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Blue200,
-                        unfocusedContainerColor = Blue200,
-                        disabledContainerColor = Blue200,
-                        cursorColor = Color.White,
-                    ),
-                    textStyle = TextStyle.Default.copy(fontFamily = fontRoboto),
                     onValueChange = {
-                        taskViewModel.updateTitle(title = it)
+                        taskViewModel.updateTitle(it)
                     },
-                    placeholder = { Text(text = stringResource(id = R.string.what_would_you_like_to_do)) },
+                    textStyle = h2TextStyle,
+                    placeholder = {
+                        Text(text = stringResource(R.string.what_would_you_like_to_do))
+                    },
                     shape = RoundedCornerShape(16.dp),
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                        //focusedTextColor = MaterialTheme.colorScheme.secondary,
+                        //unfocusedTextColor = MaterialTheme.colorScheme.secondary,
+                        cursorColor = Color.White
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
+                    ),
                     modifier = Modifier
                         .focusRequester(focusRequester)
                         .fillMaxWidth()
-                        .padding(
-                            32.dp,
-                            8.dp
-                        ),
-                    keyboardOptions = KeyboardOptions(
-                        capitalization = KeyboardCapitalization.Sentences,
-                        imeAction = ImeAction.Done
-                    )
+                        .padding(horizontal = 32.dp, vertical = 8.dp)
                 )
+
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .fillMaxWidth(.8f)
+                        .fillMaxWidth(0.8f)
                         .padding(top = 32.dp)
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = "Start Time",
+                            text = stringResource(R.string.start_time),
                             style = taskTextStyle,
                             color = Green
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         WheelTimePicker(
-                            timeFormat = TimeFormat.AM_PM,
+                            startTime = LocalTime.now(),
                             minTime = LocalTime.now(),
-                            startTime = LocalTime.ofNanoOfDay(taskStartTime),
+                            maxTime = LocalTime.MAX,
+                            timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
-                        ) { snappedTime ->
-                            taskViewModel.updateStartTime(snappedTime.toNanoOfDay())
+                        ) {
+                            taskViewModel.updateStartTime(it.toNanoOfDay())
                         }
                     }
+
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = "End Time",
+                            text = stringResource(R.string.end_time),
                             style = taskTextStyle,
                             color = Red
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         WheelTimePicker(
-                            timeFormat = TimeFormat.AM_PM,
-                            textColor = Color.White,
+                            startTime = LocalTime.now().plusHours(1),
                             minTime = LocalTime.now().plusMinutes(5),
-                            startTime = LocalTime.now().plusHours(1)
-                        ) { snappedTime ->
-                            taskViewModel.updateEndTime(snappedTime.toNanoOfDay())
+                            maxTime = LocalTime.MAX,
+                            timeFormat = TimeFormat.AM_PM,
+                            textColor = Color.White
+                        ) {
+                            taskViewModel.updateEndTime(it.toNanoOfDay())
                         }
                     }
                 }
 
                 Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(
-                            32.dp,
-                            24.dp
-                        ),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                        .padding(32.dp, 24.dp)
                 ) {
                     Text(
-                        text = "Reminder",
+                        text = stringResource(R.string.reminder),
                         style = h2TextStyle,
                         color = Color.White
                     )
-
                     Switch(
                         checked = isTaskReminderOn,
                         onCheckedChange = { isTaskReminderOn = it },
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = Green,
-                            checkedTrackColor = Blue200,
-                            uncheckedTrackColor = Blue200
+                            checkedTrackColor = MaterialTheme.colorScheme.secondary,
+                            uncheckedThumbColor = Color.White,
+                            uncheckedTrackColor = MaterialTheme.colorScheme.secondary
                         )
                     )
                 }
-            }
 
-            //bottom action buttons
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(32.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Button(
-                    onClick = {
-                        //todo: add logic
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Blue200,
-                        contentColor = Color.White
-                    ),
-                    shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.fillMaxWidth()
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(20.dp),
+                    contentAlignment = Alignment.BottomCenter
                 ) {
-                    Text(
-                        text = "Add Reminder",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 15.sp,
-                        modifier = Modifier.padding(8.dp)
-                    )
-                }
-
-                Button(
-                    onClick = {
-                        if (taskTitle.isNotBlank()) {
-                            taskViewModel.updateTask(taskViewModel.task)
-                            onBack()
-                        } else if (taskStartTime >= taskEndTime) {
-                            Toast.makeText(
-                                context,
-                                "Invalid Time",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Title can't be empty",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        TextButton(
+                            onClick = { /*TODO*/ },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            shape = RoundedCornerShape(16.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.secondary
+                            )
+                        ) {
+                            Text(
+                                text = "Add Reminder",
+                                color = Color.White,
+                                style = TextStyle(
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            )
                         }
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Green,
-                        contentColor = Color.Black
-                    ),
-                    shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = stringResource(R.string.edit_task),
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(8.dp)
-                    )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        TextButton(
+                            onClick = {
+                                if (taskTitle.isNotEmpty()) {
+                                    val task = Task(
+                                        0,
+                                        taskTitle,
+                                        false,
+                                        taskStartTime,
+                                        taskEndTime
+                                    )
+                                    taskViewModel.updateTask(task)
+                                    onBack()
+                                } else if (taskStartTime >= taskEndTime) {
+                                    Toast.makeText(
+                                        context,
+                                        "Invalid Time",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        "Title can't be empty",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            shape = RoundedCornerShape(16.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Green
+                            )
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.add_task),
+                                style = TextStyle(
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            )
+                        }
+                    }
                 }
             }
         }
