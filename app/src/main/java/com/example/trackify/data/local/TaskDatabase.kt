@@ -15,7 +15,6 @@ abstract class TaskDatabase : RoomDatabase() {
         @Volatile
         private var Instance: TaskDatabase? = null
 
-        @OptIn(InternalCoroutinesApi::class)
         fun getDatabase(context: Context): TaskDatabase {
             // if the Instance is not null, return it, otherwise create a new database instance.
             return Instance ?: synchronized(this) {

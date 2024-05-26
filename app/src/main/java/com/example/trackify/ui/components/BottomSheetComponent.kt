@@ -73,7 +73,7 @@ import java.time.LocalTime
 import kotlin.coroutines.coroutineContext
 import kotlin.math.sin
 
-@OptIn(ExperimentalMaterial3Api::class)
+/*@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheetComponent(
     scope: CoroutineScope,
@@ -245,3 +245,4 @@ private fun BottomSheetComponentPreview() {
     // BottomSheetComponent()
 
 }
+ */

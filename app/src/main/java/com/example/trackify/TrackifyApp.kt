@@ -43,7 +43,6 @@ import androidx.compose.ui.unit.sp
 import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.fontRoboto
 import com.example.trackify.presentation.h1TextStyle
-import com.example.trackify.ui.components.BottomSheetComponent
 import com.example.trackify.ui.components.TaskViewModel
 import com.example.trackify.ui.screen.HomeScreen
 import com.example.trackify.ui.theme.LightGray
@@ -113,7 +112,7 @@ fun TrackifyApp(
                 )
             }
         },
-        bottomBar = {
+        /*bottomBar = {
             BottomSheetComponent(
                 scope = scope,
                 isBottomSheetVisible,
@@ -121,7 +120,7 @@ fun TrackifyApp(
                 onDismiss = { isBottomSheetVisible = false },
                 taskViewModel = taskViewModel
             )
-        }
+        }*/
     ) {
 
         Column(modifier = Modifier.padding(it)) {

@@ -19,8 +19,10 @@ object AppModule {
     @Provides
     @Singleton
     fun providesLocalDatabase(@ApplicationContext context: Context): TaskDatabase {
-        return Room.databaseBuilder(context, TaskDatabase::class.java, "task_db")
-            .build()
+//        return Room.databaseBuilder(context, TaskDatabase::class.java, "task_db")
+//            .fallbackToDestructiveMigration()
+//            .build()
+        return TaskDatabase.getDatabase(context)
     }
 
     @Provides

@@ -10,8 +10,9 @@ import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
-@TypeConverters(LocalTimeConverter::class)
+
 @Entity(tableName = "tasks_tbl")
+@TypeConverters(LocalTimeConverter::class)
 data class Task(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String,

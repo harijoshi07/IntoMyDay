@@ -187,7 +187,7 @@ fun EditTaskScreen(
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
-                            taskViewModel.updateStartTime(it.toNanoOfDay())
+                            taskViewModel.updateStartTime(it)
                         }
                     }
 
@@ -205,7 +205,7 @@ fun EditTaskScreen(
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
-                            taskViewModel.updateEndTime(it.toNanoOfDay())
+                            taskViewModel.updateEndTime(it)
                         }
                     }
                 }
