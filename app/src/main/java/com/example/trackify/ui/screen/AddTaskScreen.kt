@@ -76,10 +76,10 @@ fun AddTaskScreen(
     }
 
     var taskStartTime by remember {
-        mutableLongStateOf(0)
+        mutableStateOf(LocalTime.now())
     }
     var taskEndTime by remember {
-        mutableLongStateOf(0)
+        mutableStateOf(LocalTime.now())
     }
 
     var isTaskReminderOn by remember {
@@ -177,7 +177,7 @@ fun AddTaskScreen(
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
-                            taskStartTime = it.toNanoOfDay()
+                            taskStartTime = it
                         }
                     }
 
@@ -195,7 +195,7 @@ fun AddTaskScreen(
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
-                            taskEndTime = it.toNanoOfDay()
+                            taskEndTime = it
                         }
                     }
                 }
