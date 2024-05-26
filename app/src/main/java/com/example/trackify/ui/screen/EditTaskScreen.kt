@@ -99,7 +99,7 @@ fun EditTaskScreen(
             ),
             title = {
                 Text(
-                    text = stringResource(R.string.update_task),
+                    text = stringResource(R.string.edit_task),
                     style = h1TextStyle
                 )
             },
@@ -303,7 +303,7 @@ fun EditTaskScreen(
                             )
                         ) {
                             Text(
-                                text = stringResource(id = R.string.add_task),
+                                text = stringResource(id = R.string.update_task),
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
