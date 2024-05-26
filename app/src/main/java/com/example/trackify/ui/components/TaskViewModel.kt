@@ -62,15 +62,15 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
     }
 
     fun updateTitle(title: String) {
-        task.copy(title = title)
+        task = task.copy(title = title)
     }
 
     fun updateStartTime(time: LocalTime) {
-        task.copy(startTime = time)
+        task = task.copy(startTime = time)
     }
 
     fun updateEndTime(time: LocalTime) {
-        task.copy(endTime = time)
+        task = task.copy(endTime = time)
     }
 
     fun getTaskById(id: Int) {
