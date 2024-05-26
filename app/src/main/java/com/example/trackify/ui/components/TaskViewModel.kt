@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.LocalTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,7 +23,7 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
     //depending on this state.
     //task is now a state variable
     var task: Task by mutableStateOf(
-        Task(0, "", false, 0, 0)
+        Task(0, "", false, LocalTime.now(), LocalTime.now())
     )
         private set
 
@@ -64,11 +65,11 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
         task.copy(title = title)
     }
 
-    fun updateStartTime(time: Long) {
+    fun updateStartTime(time: LocalTime) {
         task.copy(startTime = time)
     }
 
-    fun updateEndTime(time: Long) {
+    fun updateEndTime(time: LocalTime) {
         task.copy(endTime = time)
     }
 

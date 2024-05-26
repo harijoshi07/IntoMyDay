@@ -2,17 +2,22 @@ package com.example.trackify.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.trackify.domain.LocalTimeConverter
 import java.text.SimpleDateFormat
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
+@TypeConverters(LocalTimeConverter::class)
 @Entity(tableName = "tasks_tbl")
 data class Task(
-    @PrimaryKey(autoGenerate = true) val id: Int=0,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String,
     val isCompleted: Boolean,
-    val startTime: Long,
-    val endTime: Long
+    val startTime: LocalTime,
+    val endTime: LocalTime
 ) {
     fun getFormattedTime(): String {
         val startTimeFormat = formatTime(startTime)
@@ -21,10 +26,8 @@ data class Task(
     }
 
 
-    private fun formatTime(time: Long): String {
-        val timeFormatter = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        val date = Date(time)   //converts time in long into date object
-        return timeFormatter.format(date)
-
+    private fun formatTime(time: LocalTime): String {
+        val dtf = DateTimeFormatter.ofPattern("hh:mm a")
+        return time.format(dtf)
     }
 }

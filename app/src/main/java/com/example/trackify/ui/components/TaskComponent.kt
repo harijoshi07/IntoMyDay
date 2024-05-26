@@ -35,6 +35,7 @@ import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.LightGray
 import com.example.trackify.ui.theme.Red
 import com.example.trackify.ui.theme.Yellow
+import java.time.LocalTime
 
 @Composable
 fun TaskComponent(
@@ -143,8 +144,9 @@ fun TaskComponent(
 //            id = 0,
 //            title = "Learn Compose",
 //            isCompleted = false,
-//            startTime = System.currentTimeMillis(),
-//            endTime = System.currentTimeMillis() + 3600000
-//        )
+//            startTime = LocalTime.now(),
+//            endTime = LocalTime.now(),
+//        ),
+//        onUpdate
 //    )
 //}
