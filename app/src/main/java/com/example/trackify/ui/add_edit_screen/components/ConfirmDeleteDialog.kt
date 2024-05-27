@@ -1,5 +1,6 @@
 package com.example.trackify.ui.add_edit_screen.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.example.trackify.R
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.presentation.taskTextStyle
@@ -36,75 +38,78 @@ import com.example.trackify.ui.theme.Red
 @Composable
 fun ConfirmDeleteDialog(modifier: Modifier = Modifier) {
 
-    ElevatedCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(40.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondary
-        ),
-
-        ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+    Dialog(onDismissRequest = { /*TODO*/ }) {
+        ElevatedCard(
             modifier = Modifier
-                .fillMaxWidth(1f)
-                .padding(8.dp)
-        ) {
-            Text(
-                text = "Delete Task?", style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = FontFamily.Monospace,
-                    color = Color.White
-                )
-            )
-            Image(
-                painter = painterResource(id = R.drawable.delete),
-                contentDescription = null,
-                modifier = Modifier.size(128.dp)
-            )
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp)
+                .fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            ),
+
             ) {
-                Button(
-                    onClick = { /*TODO*/ },
-                    shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Blue200.copy(alpha = 0.5f)
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxWidth(1f)
+                    .padding(8.dp)
+            ) {
+                Text(
+                    text = "Delete Task?", style = TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        fontFamily = FontFamily.Monospace,
+                        color = Color.White
                     )
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.delete),
+                    contentDescription = null,
+                    modifier = Modifier.size(150.dp)
+                )
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp)
                 ) {
-                    Text(
-                        text = "Cancel", style = TextStyle(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            fontFamily = FontFamily.Monospace,
-                            color = Color.White
+                    Button(
+                        onClick = { /*TODO*/ },
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Blue200.copy(alpha = 0.3f)
+                        ),
+                        border = BorderStroke(1.dp, Color.White)
+                    ) {
+                        Text(
+                            text = "Cancel", style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                fontFamily = FontFamily.Monospace,
+                                color = Color.White
+                            )
                         )
-                    )
-                }
-                Button(
-                    onClick = { /*TODO*/ },
-                    shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Red
-                    )
-                ) {
-                    Text(
-                        text = "Delete", style = TextStyle(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            fontFamily = FontFamily.Monospace,
-                            color = Color.Black
+                    }
+                    Button(
+                        onClick = { /*TODO*/ },
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Red
                         )
-                    )
+                    ) {
+                        Text(
+                            text = "Delete", style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                fontFamily = FontFamily.Monospace,
+                                color = Color.Black
+                            )
+                        )
+                    }
                 }
             }
         }
+
     }
 }
 

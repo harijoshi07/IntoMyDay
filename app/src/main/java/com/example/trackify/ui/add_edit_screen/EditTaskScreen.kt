@@ -58,6 +58,7 @@ import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.presentation.taskTextStyle
+import com.example.trackify.ui.add_edit_screen.components.ConfirmDeleteDialog
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.Red
 
@@ -108,7 +109,7 @@ fun EditTaskScreen(
             },
             actions = {
 
-                IconButton(onClick = { /*TODO : impl delete task logic*/ }) {
+                IconButton(onClick = {  /*TODO : impl delete task logic*/ }) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = null
