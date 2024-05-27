@@ -21,7 +21,7 @@ class TaskRepository(private val dao: TaskDao) {
         dao.deleteTask(task)
     }
 
-    fun getTaskById(id: Int): Flow<Task> {
+     suspend fun getTaskById(id: Int): Task {
         return dao.getTaskById(id)
     }
 

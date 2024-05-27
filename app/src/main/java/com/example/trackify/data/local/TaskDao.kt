@@ -27,7 +27,9 @@ interface TaskDao {
     @Query("SELECT * FROM tasks_tbl WHERE id=:id")
     //With Flow as the return type, you receive notification whenever the data in the database changes.
     // The Room keeps this Flow updated for you, which means you only need to explicitly get the data once
-    fun getTaskById(id: Int): Flow<Task>
+    //fun getTaskById(id: Int): Flow<Task>
+    suspend fun getTaskById(id:Int):Task
+
 
     @Query("SELECT * FROM tasks_tbl")
     fun getAllTasks(): Flow<List<Task>>

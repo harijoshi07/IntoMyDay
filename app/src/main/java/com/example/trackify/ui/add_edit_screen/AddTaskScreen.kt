@@ -1,11 +1,5 @@
-package com.example.trackify.ui.screen
+package com.example.trackify.ui.add_edit_screen
 
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalContext
-import com.example.trackify.ui.components.TaskViewModel
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,10 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,101 +26,97 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.commandiron.wheel_picker_compose.WheelTimePicker
 import com.commandiron.wheel_picker_compose.core.TimeFormat
 import com.example.trackify.R
 import com.example.trackify.domain.model.Task
-import com.example.trackify.presentation.fontRoboto
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.presentation.taskTextStyle
-import com.example.trackify.ui.theme.Blue200
+import com.example.trackify.ui.home_screen.TaskViewModel
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.Red
-
+import com.example.trackify.ui.theme.TrackifyTheme
 import kotlinx.coroutines.job
 import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditTaskScreen(
-    taskId: Int,
+fun AddTaskScreen(
     taskViewModel: TaskViewModel,
-    onBack: () -> Unit
+    onClose: () -> Unit,
 ) {
-    val taskTitle = taskViewModel.task.title
-    val taskStartTime = taskViewModel.task.startTime
-    val taskEndTime = taskViewModel.task.endTime
 
-    val context = LocalContext.current
-    val focusRequester = FocusRequester()
+    var taskTitle by remember {
+        mutableStateOf("")
+    }
+
+    var taskStartTime by remember {
+        mutableStateOf(LocalTime.now())
+    }
+    var taskEndTime by remember {
+        mutableStateOf(LocalTime.now())
+    }
 
     var isTaskReminderOn by remember {
         mutableStateOf(true)
     }
 
-    LaunchedEffect(key1 = true,
-        block = {
-            taskViewModel.getTaskById(taskId)
-        })
+
+    val context = LocalContext.current
+    val focusRequester = FocusRequester()
+
 
     Scaffold(topBar = {
-        TopAppBar(modifier = Modifier.padding(8.dp),
+        TopAppBar(
+            modifier = Modifier.padding(8.dp),
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.background,
+                containerColor = MaterialTheme.colorScheme.background
             ),
             title = {
-                Text(
-                    text = stringResource(R.string.edit_task),
-                    style = h1TextStyle
-                )
+                Text(text = stringResource(id = R.string.add_task), style = h1TextStyle)
             },
             navigationIcon = {
-                IconButton(onClick = { onBack() }) {
-                    Icon(
-                        imageVector = Icons.Rounded.ArrowBack,
-                        contentDescription = null
-                    )
+                IconButton(onClick = { onClose() }) {
+                    Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "")
                 }
             },
-            actions = {
 
-                IconButton(onClick = { /*TODO : impl delete task logic*/ }) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = null
-                    )
-                }
-            })
-    }) { it ->
 
-        LaunchedEffect(key1 = true,
+            )
+    }) {
+
+        LaunchedEffect(
+            key1 = true,
             block = {
                 coroutineContext.job.invokeOnCompletion {
                     focusRequester.requestFocus()
                 }
-            })
+            }
+        )
 
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -143,7 +132,7 @@ fun EditTaskScreen(
                 OutlinedTextField(
                     value = taskTitle,
                     onValueChange = {
-                        taskViewModel.updateTitle(it)
+                        taskTitle = it
                     },
                     textStyle = h2TextStyle,
                     placeholder = {
@@ -187,7 +176,7 @@ fun EditTaskScreen(
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
-                            taskViewModel.updateStartTime(it)
+                            taskStartTime = it
                         }
                     }
 
@@ -205,7 +194,7 @@ fun EditTaskScreen(
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
-                            taskViewModel.updateEndTime(it)
+                            taskEndTime = it
                         }
                     }
                 }
@@ -277,8 +266,8 @@ fun EditTaskScreen(
                                         taskStartTime,
                                         taskEndTime
                                     )
-                                    taskViewModel.updateTask(task)
-                                    onBack()
+                                    taskViewModel.insertTask(task)
+                                    onClose()
                                 } else if (taskStartTime >= taskEndTime) {
                                     Toast.makeText(
                                         context,
@@ -303,7 +292,7 @@ fun EditTaskScreen(
                             )
                         ) {
                             Text(
-                                text = stringResource(id = R.string.update_task),
+                                text = stringResource(id = R.string.add_task),
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
@@ -315,4 +304,15 @@ fun EditTaskScreen(
             }
         }
     }
+}
+
+@Preview
+@Composable
+private fun AddEditScreenPreview() {
+    TrackifyTheme(
+        darkTheme = true, dynamicColor = false
+    ) {
+        // AddEditScreen()
+    }
+
 }

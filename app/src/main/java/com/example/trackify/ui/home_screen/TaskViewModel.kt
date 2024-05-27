@@ -1,4 +1,4 @@
-package com.example.trackify.ui.components
+package com.example.trackify.ui.home_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -75,7 +75,7 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
 
     fun getTaskById(id: Int) {
         viewModelScope.launch {
-            repository.getTaskById(id)
+           task=  repository.getTaskById(id)
         }
     }
 

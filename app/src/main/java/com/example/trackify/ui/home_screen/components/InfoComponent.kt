@@ -1,4 +1,4 @@
-package com.example.trackify.ui.components
+package com.example.trackify.ui.home_screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
