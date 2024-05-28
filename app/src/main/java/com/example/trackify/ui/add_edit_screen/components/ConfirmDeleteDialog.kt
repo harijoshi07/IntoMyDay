@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.trackify.R
+import com.example.trackify.presentation.compTextStyle
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.presentation.taskTextStyle
 import com.example.trackify.ui.theme.Blue200
@@ -55,12 +56,7 @@ fun ConfirmDeleteDialog(modifier: Modifier = Modifier) {
                     .padding(8.dp)
             ) {
                 Text(
-                    text = "Delete Task?", style = TextStyle(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        fontFamily = FontFamily.Monospace,
-                        color = Color.White
-                    )
+                    text = "Delete Task?", style = compTextStyle
                 )
                 Image(
                     painter = painterResource(id = R.drawable.delete),
@@ -82,12 +78,7 @@ fun ConfirmDeleteDialog(modifier: Modifier = Modifier) {
                         border = BorderStroke(1.dp, Color.White)
                     ) {
                         Text(
-                            text = "Cancel", style = TextStyle(
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                fontFamily = FontFamily.Monospace,
-                                color = Color.White
-                            )
+                            text = "Cancel", style = compTextStyle
                         )
                     }
                     Button(
@@ -98,12 +89,9 @@ fun ConfirmDeleteDialog(modifier: Modifier = Modifier) {
                         )
                     ) {
                         Text(
-                            text = "Delete", style = TextStyle(
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                fontFamily = FontFamily.Monospace,
-                                color = Color.Black
-                            )
+                            text = "Delete",
+                            style = compTextStyle,
+                            color = Color.Black
                         )
                     }
                 }

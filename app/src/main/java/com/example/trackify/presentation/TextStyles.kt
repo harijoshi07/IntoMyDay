@@ -1,5 +1,6 @@
 package com.example.trackify.presentation
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -45,4 +46,11 @@ var taskDescTextStyle = TextStyle(
     fontSize = 10.sp,
     fontFamily = fontRoboto,
     fontWeight = FontWeight.Normal
+)
+
+var compTextStyle = TextStyle(
+    fontSize = 16.sp,
+    fontWeight = FontWeight.SemiBold,
+    fontFamily = FontFamily.Monospace,
+    color = Color.White
 )
