@@ -37,9 +37,13 @@ import com.example.trackify.ui.theme.Blue500
 import com.example.trackify.ui.theme.Red
 
 @Composable
-fun ConfirmDeleteDialog(modifier: Modifier = Modifier) {
+fun ConfirmDeleteDialog(
+    onClose: () -> Unit,
+    onDelete: () -> Unit,
+    modifier: Modifier = Modifier
+) {
 
-    Dialog(onDismissRequest = { /*TODO*/ }) {
+    Dialog(onDismissRequest = { }) {
         ElevatedCard(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -70,7 +74,7 @@ fun ConfirmDeleteDialog(modifier: Modifier = Modifier) {
                         .padding(horizontal = 12.dp)
                 ) {
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { onClose() },
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Blue200.copy(alpha = 0.3f)
@@ -82,7 +86,7 @@ fun ConfirmDeleteDialog(modifier: Modifier = Modifier) {
                         )
                     }
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { onDelete() },
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Red
@@ -105,5 +109,5 @@ fun ConfirmDeleteDialog(modifier: Modifier = Modifier) {
 @Composable
 private fun ConfirmDeleteDialogPreview() {
 
-    ConfirmDeleteDialog()
+    ConfirmDeleteDialog(onDelete = {}, onClose = {})
 }

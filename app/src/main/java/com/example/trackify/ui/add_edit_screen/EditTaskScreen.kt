@@ -83,6 +83,10 @@ fun EditTaskScreen(
         mutableStateOf(true)
     }
 
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
+
     LaunchedEffect(key1 = true,
         block = {
             taskViewModel.getTaskById(taskId)
@@ -109,7 +113,9 @@ fun EditTaskScreen(
             },
             actions = {
 
-                IconButton(onClick = {  /*TODO : impl delete task logic*/ }) {
+                IconButton(onClick = {
+                    showDialog = true
+                }) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = null
@@ -124,6 +130,18 @@ fun EditTaskScreen(
                     focusRequester.requestFocus()
                 }
             })
+
+        //confirm delete dialog
+        if (showDialog) {
+            ConfirmDeleteDialog(
+                onClose = { showDialog = false },
+                onDelete = {
+                    taskViewModel.deleteTask(taskViewModel.task)
+                    showDialog = false
+                    onBack()
+                }
+            )
+        }
 
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
