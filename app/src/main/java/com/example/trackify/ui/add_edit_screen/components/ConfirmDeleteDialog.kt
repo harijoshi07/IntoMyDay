@@ -43,7 +43,7 @@ fun ConfirmDeleteDialog(
     modifier: Modifier = Modifier
 ) {
 
-    Dialog(onDismissRequest = { }) {
+    Dialog(onDismissRequest = {onClose() }) {
         ElevatedCard(
             modifier = Modifier
                 .fillMaxWidth(),
