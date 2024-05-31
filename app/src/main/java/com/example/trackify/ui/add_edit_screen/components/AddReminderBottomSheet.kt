@@ -47,7 +47,11 @@ import com.example.trackify.ui.theme.TrackifyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddReminderBottomSheet(modifier: Modifier = Modifier) {
+fun AddReminderBottomSheet(
+    onClose: () -> Unit,
+    onDone: () -> Unit,
+    modifier: Modifier = Modifier
+) {
 
     val availableReminder = remember {
         mutableStateListOf(
@@ -58,66 +62,69 @@ fun AddReminderBottomSheet(modifier: Modifier = Modifier) {
         )
     }
 
-    ElevatedCard(
-        onClick = { /*TODO*/ },
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondary
-        ),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-
-        Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 12.dp)
+    ModalBottomSheet(onDismissRequest = { onClose() }) {
+        ElevatedCard(
+            onClick = { /*TODO*/ },
+            shape = RoundedCornerShape(12.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            ),
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                text = "Add Reminder",
-                style = h2TextStyle,
-                color = LightGray
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            for (reminder in availableReminder) {
-                ReminderCheckBox(reminder.time, reminder.isTurnedOn)
-            }
-            Spacer(modifier = Modifier.height(4.dp))
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                //.padding(horizontal = 12.dp)
+                    .padding(horizontal = 24.dp, vertical = 12.dp)
             ) {
-                Button(
-                    onClick = { /*TODO*/ },
-                    shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Blue200.copy(alpha = 0.3f)
-                    ),
-                    border = BorderStroke(1.dp, Color.White)
-                ) {
-                    Text(
-                        text = "Cancel", style = compTextStyle
-                    )
+                Text(
+                    text = "Add Reminder",
+                    style = h2TextStyle,
+                    color = LightGray
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                for (reminder in availableReminder) {
+                    ReminderCheckBox(reminder.time, reminder.isTurnedOn)
                 }
-                Button(
-                    onClick = { /*TODO*/ },
-                    shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Green
-                    )
+                Spacer(modifier = Modifier.height(4.dp))
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                    //.padding(horizontal = 12.dp)
                 ) {
-                    Text(
-                        text = "Done",
-                        style = compTextStyle,
-                        color = Color.Black
-                    )
+                    Button(
+                        onClick = { onClose() },
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Blue200.copy(alpha = 0.3f)
+                        ),
+                        border = BorderStroke(1.dp, Color.White)
+                    ) {
+                        Text(
+                            text = "Cancel", style = compTextStyle
+                        )
+                    }
+                    Button(
+                        onClick = { onDone() },
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Green
+                        )
+                    ) {
+                        Text(
+                            text = "Done",
+                            style = compTextStyle,
+                            color = Color.Black
+                        )
+                    }
                 }
-            }
 
+            }
         }
+        
     }
 
 
@@ -169,7 +176,7 @@ private fun AddReminderBottomSheetPreview() {
 //    ) {
 //        AddReminderBottomSheet()
 //    }
-    AddReminderBottomSheet()
+    AddReminderBottomSheet({},{})
     //ReminderCheckBox(5,false)
 
 }
