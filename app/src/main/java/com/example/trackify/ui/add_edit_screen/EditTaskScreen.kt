@@ -58,6 +58,7 @@ import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.presentation.taskTextStyle
+import com.example.trackify.ui.add_edit_screen.components.AddReminderBottomSheet
 import com.example.trackify.ui.add_edit_screen.components.ConfirmDeleteDialog
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.Red
@@ -84,6 +85,10 @@ fun EditTaskScreen(
     }
 
     var showDialog by remember {
+        mutableStateOf(false)
+    }
+
+    var showBottomSheet by remember {
         mutableStateOf(false)
     }
 
@@ -142,6 +147,18 @@ fun EditTaskScreen(
                 }
             )
         }
+
+        //add reminder bottomsheet
+        if (showBottomSheet) {
+            AddReminderBottomSheet(
+                onClose = { showBottomSheet = false },
+                onDone = {
+                    // todo: logic to add reminder chips
+                    showBottomSheet = false
+                }
+            )
+        }
+
 
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -260,7 +277,7 @@ fun EditTaskScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         TextButton(
-                            onClick = { /*TODO*/ },
+                            onClick = { showBottomSheet = true },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
