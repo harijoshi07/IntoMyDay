@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackify.data.repositories.TaskRepository
-import com.example.trackify.domain.model.Reminder
 import com.example.trackify.domain.model.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,12 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskViewModel @Inject constructor(private val repository: TaskRepository) : ViewModel() {
 
-    var availableReminder: List<Reminder> = listOf(
-        Reminder(5),
-        Reminder(10),
-        Reminder(15),
-        Reminder(30),
-    )
+
 
     //mutableStateOf manages the state of Task object reactively
     //when task value will be updated, compose will automatically update the UI elements
@@ -36,13 +30,7 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
             title = "",
             isCompleted = false,
             startTime = LocalTime.now(),
-            endTime = LocalTime.now(),
-            reminderList = listOf(
-                Reminder(5),
-                Reminder(10),
-                Reminder(15),
-                Reminder(30)
-            )
+            endTime = LocalTime.now()
         )
     )
         private set
@@ -106,9 +94,7 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
         }
     }
 
-    fun updateReminderList(reminderList: List<Reminder>) {
-        task = task.copy(reminderList = reminderList)
-    }
+
 
     fun undoDeletedTask() {
         deletedTask?.let {

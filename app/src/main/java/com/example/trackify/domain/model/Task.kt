@@ -4,15 +4,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.trackify.domain.LocalTimeConverter
-import com.example.trackify.domain.ReminderListConverter
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 
 @Entity(tableName = "tasks_tbl")
 @TypeConverters(
-    LocalTimeConverter::class,
-    ReminderListConverter::class
+    LocalTimeConverter::class
 )
 data class Task(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
@@ -20,12 +18,7 @@ data class Task(
     val isCompleted: Boolean,
     val startTime: LocalTime,
     val endTime: LocalTime,
-    val reminderList: List<Reminder> = listOf(
-        Reminder(5),
-        Reminder(10),
-        Reminder(15),
-        Reminder(30)
-    )
+
 ) {
     fun getFormattedTime(): String {
         val startTimeFormat = formatTime(startTime)

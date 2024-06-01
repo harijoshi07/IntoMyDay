@@ -61,7 +61,6 @@ import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.presentation.taskTextStyle
-import com.example.trackify.ui.add_edit_screen.components.AddReminderBottomSheet
 import com.example.trackify.ui.add_edit_screen.components.ConfirmDeleteDialog
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.Red
@@ -91,9 +90,7 @@ fun EditTaskScreen(
         mutableStateOf(false)
     }
 
-    var showBottomSheet by remember {
-        mutableStateOf(false)
-    }
+
 
     LaunchedEffect(key1 = true,
         block = {
@@ -150,18 +147,6 @@ fun EditTaskScreen(
                 }
             )
         }
-
-        //add reminder bottomsheet
-        if (showBottomSheet) {
-            AddReminderBottomSheet(
-                onClose = { showBottomSheet = false },
-                onDone = {availableReminders->
-                    taskViewModel.updateReminderList(availableReminders)
-                    showBottomSheet = false
-                }
-            )
-        }
-
 
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -268,24 +253,6 @@ fun EditTaskScreen(
                     )
                 }
 
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentPadding = PaddingValues(8.dp)
-                ) {
-                    items(taskViewModel.task.reminderList) { reminder ->
-                        if (reminder.isTurnedOn) {
-                            Box(
-                                modifier = Modifier.padding(8.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = "${reminder.time} minutes before",
-                                    color = Color.White
-                                )
-                            }
-                        }
-                    }
-                }
 
                 Box(
                     modifier = Modifier
@@ -298,27 +265,6 @@ fun EditTaskScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        TextButton(
-                            onClick = { showBottomSheet = true },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp),
-                            shape = RoundedCornerShape(16.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.secondary
-                            )
-                        ) {
-                            Text(
-                                text = "Add Reminder",
-                                color = Color.White,
-                                style = TextStyle(
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.height(10.dp))
 
                         TextButton(
                             onClick = {
