@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackify.data.repositories.TaskRepository
+import com.example.trackify.domain.model.Reminder
 import com.example.trackify.domain.model.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,14 +19,34 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskViewModel @Inject constructor(private val repository: TaskRepository) : ViewModel() {
 
+    var availableReminder: List<Reminder> = listOf(
+        Reminder(5),
+        Reminder(10),
+        Reminder(15),
+        Reminder(30),
+    )
+
     //mutableStateOf manages the state of Task object reactively
     //when task value will be updated, compose will automatically update the UI elements
     //depending on this state.
     //task is now a state variable
     var task: Task by mutableStateOf(
-        Task(0, "", false, LocalTime.now(), LocalTime.now())
+        Task(
+            id = 0,
+            title = "",
+            isCompleted = false,
+            startTime = LocalTime.now(),
+            endTime = LocalTime.now(),
+            reminderList = listOf(
+                Reminder(5),
+                Reminder(10),
+                Reminder(15),
+                Reminder(30)
+            )
+        )
     )
         private set
+
 
     var tasks = repository.getAllTasks()
     //var taskList =repository.getAllTasks()
@@ -75,7 +96,7 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
 
     fun getTaskById(id: Int) {
         viewModelScope.launch {
-           task=  repository.getTaskById(id)
+            task = repository.getTaskById(id)
         }
     }
 
@@ -83,6 +104,10 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
         viewModelScope.launch {
             repository.getAllTasks()
         }
+    }
+
+    fun updateReminderList(reminderList: List<Reminder>) {
+        task = task.copy(reminderList = reminderList)
     }
 
     fun undoDeletedTask() {

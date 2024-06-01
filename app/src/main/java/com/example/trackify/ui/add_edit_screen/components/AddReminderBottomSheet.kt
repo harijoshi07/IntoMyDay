@@ -49,7 +49,7 @@ import com.example.trackify.ui.theme.TrackifyTheme
 @Composable
 fun AddReminderBottomSheet(
     onClose: () -> Unit,
-    onDone: () -> Unit,
+    onDone: (List<Reminder>) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -108,7 +108,7 @@ fun AddReminderBottomSheet(
                         )
                     }
                     Button(
-                        onClick = { onDone() },
+                        onClick = { onDone(availableReminder) },
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Green
