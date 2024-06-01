@@ -108,4 +108,7 @@ dependencies {
     //Wheel Picker Compose
     implementation("com.github.commandiron:WheelPickerCompose:1.1.11")
 
+    //gson
+    implementation("com.google.code.gson:gson:2.11.0")
+
 }
