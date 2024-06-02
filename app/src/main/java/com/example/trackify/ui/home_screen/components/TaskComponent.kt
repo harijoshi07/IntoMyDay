@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.trackify.R
 import com.example.trackify.domain.model.Task
@@ -34,6 +35,7 @@ import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.LightGray
 import com.example.trackify.ui.theme.Red
 import com.example.trackify.ui.theme.Yellow
+import java.time.LocalTime
 
 @Composable
 fun TaskComponent(
@@ -134,17 +136,19 @@ fun TaskComponent(
 
 }
 
-//@Preview
-//@Composable
-//private fun TaskComponentPreview() {
-//    TaskComponent(
-//        task = Task(
-//            id = 0,
-//            title = "Learn Compose",
-//            isCompleted = false,
-//            startTime = LocalTime.now(),
-//            endTime = LocalTime.now(),
-//        ),
-//        onUpdate
-//    )
-//}
+@Preview
+@Composable
+private fun TaskComponentPreview() {
+    TaskComponent(
+        task = Task(
+            id = 0,
+            title = "Learn Compose",
+            isCompleted = false,
+            startTime = LocalTime.now(),
+            endTime = LocalTime.now(),
+            reminder = true,
+            category = "others"
+        ),
+        onUpdate = {}
+    )
+}

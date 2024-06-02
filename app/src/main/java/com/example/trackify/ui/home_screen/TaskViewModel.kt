@@ -30,7 +30,9 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
             title = "",
             isCompleted = false,
             startTime = LocalTime.now(),
-            endTime = LocalTime.now()
+            endTime = LocalTime.now(),
+            reminder = false,
+            category = ""
         )
     )
         private set
@@ -80,6 +82,14 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
 
     fun updateEndTime(time: LocalTime) {
         task = task.copy(endTime = time)
+    }
+
+    fun updateReminder(reminder: Boolean) {
+        task = task.copy(reminder = reminder)
+    }
+
+    fun updateCategory(category: String) {
+        task = task.copy(category = category)
     }
 
     fun getTaskById(id: Int) {
