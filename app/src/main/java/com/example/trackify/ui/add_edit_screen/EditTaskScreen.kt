@@ -274,7 +274,7 @@ fun EditTaskScreen(
                                         taskTitle,
                                         false,
                                         taskStartTime,
-                                        taskEndTime
+                                        taskEndTime,
                                     )
                                     taskViewModel.updateTask(task)
                                     onBack()

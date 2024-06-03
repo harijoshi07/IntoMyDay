@@ -19,7 +19,6 @@ import javax.inject.Inject
 class TaskViewModel @Inject constructor(private val repository: TaskRepository) : ViewModel() {
 
 
-
     //mutableStateOf manages the state of Task object reactively
     //when task value will be updated, compose will automatically update the UI elements
     //depending on this state.
@@ -84,6 +83,10 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
         task = task.copy(endTime = time)
     }
 
+    fun updateIsCompleted(isCompleted: Boolean) {
+        task = task.copy(isCompleted = isCompleted)
+    }
+
     fun updateReminder(reminder: Boolean) {
         task = task.copy(reminder = reminder)
     }
@@ -103,7 +106,6 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
             repository.getAllTasks()
         }
     }
-
 
 
     fun undoDeletedTask() {

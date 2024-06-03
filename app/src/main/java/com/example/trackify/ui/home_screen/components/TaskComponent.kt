@@ -41,6 +41,7 @@ import java.time.LocalTime
 fun TaskComponent(
     task: Task,
     onUpdate: (Int) -> Unit,
+    onComplete: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -149,6 +150,7 @@ private fun TaskComponentPreview() {
             reminder = true,
             category = "others"
         ),
-        onUpdate = {}
+        onUpdate = {},
+        onComplete = {}
     )
 }
