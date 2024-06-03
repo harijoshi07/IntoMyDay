@@ -45,11 +45,11 @@ fun TaskComponent(
     modifier: Modifier = Modifier
 ) {
 
-    val randomColor = listOf(Green, Blue, Red, Yellow).random()
+    val priorityColors = listOf(LightGray, Yellow, Red)
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = randomColor, shape = RoundedCornerShape(8.dp))
+            .background(color = priorityColors[task.priority], shape = RoundedCornerShape(8.dp))
             .padding(start = 10.dp)
     ) {
         Box(

@@ -18,12 +18,18 @@ import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.ui.theme.Red
 
 @Composable
-fun PriorityComponent(title: String, backgroundColor: Color, modifier: Modifier = Modifier) {
+fun PriorityComponent(
+    title: String,
+    backgroundColor: Color,
+    onClick:()->Unit,
+    modifier: Modifier = Modifier
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
         shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = backgroundColor)
+        colors = CardDefaults.cardColors(containerColor = backgroundColor),
+        onClick = {onClick()}
     ) {
         Text(
             text = title,
@@ -31,7 +37,7 @@ fun PriorityComponent(title: String, backgroundColor: Color, modifier: Modifier 
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentSize(Alignment.Center)
-                .padding(16.dp)
+                .padding(16.dp,24.dp)
         )
     }
 }
@@ -39,6 +45,10 @@ fun PriorityComponent(title: String, backgroundColor: Color, modifier: Modifier 
 @Preview
 @Composable
 private fun PreviewPriorityComponent() {
-    PriorityComponent(title = "", backgroundColor = Red)
+    PriorityComponent(
+        title = "",
+        backgroundColor = Red,
+        onClick = {}
+    )
 
 }

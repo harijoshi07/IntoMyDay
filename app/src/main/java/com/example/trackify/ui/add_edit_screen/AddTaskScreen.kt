@@ -57,10 +57,13 @@ import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.presentation.taskTextStyle
+import com.example.trackify.ui.add_edit_screen.components.PriorityComponent
 import com.example.trackify.ui.home_screen.TaskViewModel
 import com.example.trackify.ui.theme.Green
+import com.example.trackify.ui.theme.LightGray
 import com.example.trackify.ui.theme.Red
 import com.example.trackify.ui.theme.TrackifyTheme
+import com.example.trackify.ui.theme.Yellow
 import kotlinx.coroutines.job
 import java.time.LocalTime
 
@@ -229,6 +232,36 @@ fun AddTaskScreen(
                             uncheckedTrackColor = MaterialTheme.colorScheme.secondary
                         )
                     )
+                }
+
+                //task priority
+                Row (modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp, 0.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ){
+                    PriorityComponent(
+                        title ="High",
+                        backgroundColor = LightGray,
+                        modifier = Modifier.weight(0.3f),
+                        onClick = {taskPriority=0}
+                    )
+
+                    PriorityComponent(
+                        title ="Medium",
+                        backgroundColor = Yellow,
+                        modifier = Modifier.weight(0.4f),
+                        onClick = {taskPriority=1}
+                    )
+
+                    PriorityComponent(
+                        title ="Low",
+                        backgroundColor = Red,
+                        modifier = Modifier.weight(0.3f),
+                        onClick = {taskPriority=2}
+                    )
+
+
                 }
 
                 Box(
