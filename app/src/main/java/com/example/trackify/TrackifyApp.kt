@@ -36,6 +36,7 @@ import com.example.trackify.presentation.fontRoboto
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.ui.home_screen.TaskViewModel
 import com.example.trackify.ui.home_screen.HomeScreen
+import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.TrackifyTheme
 import com.example.trackify.ui.theme.Yellow
 
@@ -90,8 +91,8 @@ fun TrackifyApp(
                     onAddTask()
 
                 },
-                containerColor = MaterialTheme.colorScheme.secondary,
-                contentColor = Color.White
+                containerColor = Blue,
+                contentColor = MaterialTheme.colorScheme.secondary
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
