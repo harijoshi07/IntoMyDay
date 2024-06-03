@@ -96,6 +96,10 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
         task = task.copy(category = category)
     }
 
+    fun updatePriority(priority:Int){
+        task=task.copy(priority=priority)
+    }
+
     fun getTaskById(id: Int) {
         viewModelScope.launch {
             task = repository.getTaskById(id)

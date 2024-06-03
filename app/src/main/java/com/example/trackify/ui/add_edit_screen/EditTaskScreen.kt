@@ -40,6 +40,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -62,8 +63,11 @@ import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.presentation.taskTextStyle
 import com.example.trackify.ui.add_edit_screen.components.ConfirmDeleteDialog
+import com.example.trackify.ui.add_edit_screen.components.PriorityComponent
 import com.example.trackify.ui.theme.Green
+import com.example.trackify.ui.theme.LightGray
 import com.example.trackify.ui.theme.Red
+import com.example.trackify.ui.theme.Yellow
 
 import kotlinx.coroutines.job
 import java.time.LocalTime
@@ -82,8 +86,12 @@ fun EditTaskScreen(
     val context = LocalContext.current
     val focusRequester = FocusRequester()
 
+    var taskPriority by remember {
+        mutableIntStateOf(taskViewModel.task.priority)
+    }
+
     var isTaskReminderOn by remember {
-        mutableStateOf(true)
+        mutableStateOf(taskViewModel.task.reminder)
     }
 
     var showDialog by remember {
@@ -243,13 +251,48 @@ fun EditTaskScreen(
                     )
                     Switch(
                         checked = isTaskReminderOn,
-                        onCheckedChange = { isTaskReminderOn = it },
+                        onCheckedChange = {
+                            taskViewModel.updateReminder(it)
+                            isTaskReminderOn = it
+                                          },
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = Green,
                             checkedTrackColor = MaterialTheme.colorScheme.secondary,
                             uncheckedThumbColor = Color.White,
                             uncheckedTrackColor = MaterialTheme.colorScheme.secondary
                         )
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            24.dp,
+                            0.dp
+                        ),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+
+                    PriorityComponent(
+                        title = "Low",
+                        backgroundColor = LightGray,
+                        modifier = Modifier.weight(0.3f),
+                        onClick = { taskViewModel.updatePriority(0) }
+                    )
+
+                    PriorityComponent(
+                        title = "Medium",
+                        backgroundColor = Yellow,
+                        modifier = Modifier.weight(0.4f),
+                        onClick = { taskViewModel.updatePriority(1) }
+                    )
+
+                    PriorityComponent(
+                        title = "High",
+                        backgroundColor = Red,
+                        modifier = Modifier.weight(0.3f),
+                        onClick = { taskViewModel.updatePriority(2) }
                     )
                 }
 
