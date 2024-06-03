@@ -312,14 +312,8 @@ fun EditTaskScreen(
                         TextButton(
                             onClick = {
                                 if (taskTitle.isNotEmpty()) {
-                                    val task = Task(
-                                        0,
-                                        taskTitle,
-                                        false,
-                                        taskStartTime,
-                                        taskEndTime,
-                                    )
-                                    taskViewModel.updateTask(task)
+
+                                    taskViewModel.updateTask(taskViewModel.task)
                                     onBack()
                                 } else if (taskStartTime >= taskEndTime) {
                                     Toast.makeText(
