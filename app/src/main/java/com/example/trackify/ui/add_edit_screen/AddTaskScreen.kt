@@ -32,6 +32,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -87,6 +88,10 @@ fun AddTaskScreen(
 
     var taskCategory by remember {
         mutableStateOf("")
+    }
+
+    var taskPriority by remember {
+        mutableIntStateOf(0)
     }
 
     val context = LocalContext.current
@@ -248,7 +253,8 @@ fun AddTaskScreen(
                                         taskStartTime,
                                         taskEndTime,
                                         isTaskReminderOn,
-                                        taskCategory
+                                        taskCategory,
+                                        taskPriority
                                     )
                                     taskViewModel.insertTask(task)
                                     onClose()

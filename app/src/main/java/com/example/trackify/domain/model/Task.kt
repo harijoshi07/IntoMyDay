@@ -19,7 +19,8 @@ data class Task(
     val startTime: LocalTime,
     val endTime: LocalTime,
     val reminder: Boolean,
-    val category: String
+    val category: String,
+    val priority: Int=0
 
 ) {
     fun getFormattedTime(): String {
