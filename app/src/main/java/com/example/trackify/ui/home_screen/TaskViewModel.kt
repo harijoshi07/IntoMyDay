@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackify.data.repositories.TaskRepository
 import com.example.trackify.domain.model.Task
+import com.example.trackify.ui.add_edit_screen.AddEditScreenEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -48,6 +49,7 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
             initialValue = emptyList()
         )
 
+    //Home Screen Events
     fun onEvent(event: HomeScreenEvent){
         when(event){
             is HomeScreenEvent.OnCompleted->{
@@ -55,6 +57,17 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
                     task=repository.getTaskById(event.taskId)
                     task = task.copy(isCompleted = true)
                     repository.update(task)
+                }
+            }
+        }
+    }
+
+    //Add Edit Screen Events
+    fun onEvent(event: AddEditScreenEvent){
+        when(event){
+            is AddEditScreenEvent.OnAddTaskClick->{
+                viewModelScope.launch {
+                    repository.insert(event.task)
                 }
             }
         }
