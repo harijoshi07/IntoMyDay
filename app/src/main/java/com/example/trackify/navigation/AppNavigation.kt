@@ -1,6 +1,7 @@
 package com.example.trackify.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -49,6 +50,10 @@ fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
             })
         ) { navBackStackEntry ->
             navBackStackEntry.arguments?.getInt("id").let { id ->
+                LaunchedEffect(key1 = true) {
+                    taskViewModel.getTaskById(id!!)
+                    
+                }
                 EditTaskScreen(
                     task = taskViewModel.task,
                     onEvent=taskViewModel::onEvent,

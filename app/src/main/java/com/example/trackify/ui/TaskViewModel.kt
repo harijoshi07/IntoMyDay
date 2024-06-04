@@ -121,11 +121,10 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
     }
 
 
-    fun getTaskById(id: Int):Task {
+    fun getTaskById(id: Int) {
         viewModelScope.launch {
             task = repository.getTaskById(id)
         }
-        return task
     }
 
     fun getAllTasks() {
