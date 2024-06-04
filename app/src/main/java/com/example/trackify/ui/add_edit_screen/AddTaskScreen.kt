@@ -70,7 +70,7 @@ import java.time.LocalTime
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTaskScreen(
-    taskViewModel: TaskViewModel,
+    onEvent:(AddEditScreenEvent)->Unit,
     onClose: () -> Unit,
 ) {
 
@@ -289,7 +289,7 @@ fun AddTaskScreen(
                                         taskCategory,
                                         taskPriority
                                     )
-                                    taskViewModel.insertTask(task)
+                                    onEvent(AddEditScreenEvent.onAddTaskClick(task))
                                     onClose()
                                 } else if (taskStartTime >= taskEndTime) {
                                     Toast.makeText(
@@ -335,7 +335,10 @@ private fun AddEditScreenPreview() {
     TrackifyTheme(
         darkTheme = true, dynamicColor = false
     ) {
-        // AddEditScreen()
+         AddTaskScreen(
+             onEvent = {},
+             onClose = {}
+         )
     }
 
 }
