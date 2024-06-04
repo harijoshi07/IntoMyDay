@@ -106,7 +106,7 @@ fun HomeScreen(
 //                            taskViewModel.getTaskById(taskId)
 //                            taskViewModel.updateIsCompleted(isCompleted =!taskViewModel.task.isCompleted)
 //                            taskViewModel.updateTask(taskViewModel.task)
-                            onEvent(HomeScreenEvent.onCompleted(it))
+                            onEvent(HomeScreenEvent.OnCompleted(it))
 
                         }
                     )
