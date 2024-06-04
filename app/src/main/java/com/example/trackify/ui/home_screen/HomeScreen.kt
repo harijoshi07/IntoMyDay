@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.trackify.R
+import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.ui.home_screen.components.EmptyScreenComponent
 import com.example.trackify.ui.home_screen.components.InfoComponent
@@ -28,17 +29,17 @@ import com.example.trackify.ui.home_screen.components.TaskComponent
 import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.TrackifyTheme
+import java.time.LocalTime
 
 @Composable
 fun HomeScreen(
-    taskViewModel: TaskViewModel,
+    tasks:List<Task>,
     onEditTask: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
 
     //val tasks by taskViewModel.taskList.collectAsStateWithLifecycle(initialValue = emptyList())
-    val tasks by taskViewModel.taskList.collectAsState()
     val totalTasks = tasks.size
     val completedTasks = tasks.count { it.isCompleted }
 
@@ -101,9 +102,9 @@ fun HomeScreen(
                         task = it,
                         onUpdate = onEditTask,
                         onComplete ={taskId->
-                            taskViewModel.getTaskById(taskId)
-                            taskViewModel.updateIsCompleted(isCompleted =!taskViewModel.task.isCompleted)
-                            taskViewModel.updateTask(taskViewModel.task)
+//                            taskViewModel.getTaskById(taskId)
+//                            taskViewModel.updateIsCompleted(isCompleted =!taskViewModel.task.isCompleted)
+//                            taskViewModel.updateTask(taskViewModel.task)
 
                         }
                     )
@@ -121,6 +122,32 @@ fun HomeScreen(
 private fun PrevHomeScreen() {
     TrackifyTheme(darkTheme = true, dynamicColor = false) {
         // HomeScreen()
+        val tasks = listOf(
+            Task(
+                id = 1,
+                title = "Learn Kotlin",
+                isCompleted = false,
+                startTime = LocalTime.now(),
+                endTime = LocalTime.now(),
+                reminder = true,
+                category = "",
+                priority = 0
+            ),
+            Task(
+                id = 2,
+                title = "Drink Water",
+                isCompleted = true,
+                startTime = LocalTime.now(),
+                endTime = LocalTime.now(),
+                reminder = false,
+                category = "",
+                priority = 1
+            )
+        )
+        HomeScreen(
+            tasks = tasks,
+            {},
+        )
     }
 
 }

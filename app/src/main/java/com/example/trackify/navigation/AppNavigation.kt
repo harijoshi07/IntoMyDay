@@ -1,6 +1,8 @@
 package com.example.trackify.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -20,8 +22,9 @@ fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
     NavHost(navController = navController, startDestination = Routes.TrackifyScreen.name) {
         composable(Routes.TrackifyScreen.name) {
             //HomeScreen(viewModel)
+            val tasks by taskViewModel.taskList.collectAsState()
             TrackifyApp(
-                taskViewModel,
+                tasks,
                 onAddTask = {
                     navController.navigate(route = Routes.AddTaskScreen.name)
                 },

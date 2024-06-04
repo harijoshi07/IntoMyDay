@@ -32,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.fontRoboto
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.ui.home_screen.TaskViewModel
@@ -43,7 +44,7 @@ import com.example.trackify.ui.theme.Yellow
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrackifyApp(
-    taskViewModel: TaskViewModel,
+    tasks:List<Task>,
     onAddTask: () -> Unit,
     onEditTask: (id: Int) -> Unit,
     modifier: Modifier = Modifier
@@ -114,7 +115,7 @@ fun TrackifyApp(
 
         Column(modifier = Modifier.padding(it)) {
             HomeScreen(
-                taskViewModel,
+                tasks,
                 onEditTask
             )
         }
