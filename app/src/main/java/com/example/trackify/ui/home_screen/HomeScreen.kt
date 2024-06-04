@@ -39,10 +39,14 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
 
+    val completedTasks = mutableListOf<Task>()
+    val incompletedTasks = mutableListOf<Task>()
 
-    //val tasks by taskViewModel.taskList.collectAsStateWithLifecycle(initialValue = emptyList())
+    tasks.filterTo(completedTasks) { it.isCompleted }
+    tasks.filterTo(incompletedTasks) { !it.isCompleted }
+
     val totalTasks = tasks.size
-    val completedTasks = tasks.count { it.isCompleted }
+    val totalCompletedTasks = completedTasks.size
 
 
     Column(
@@ -61,7 +65,7 @@ fun HomeScreen(
         ) {
             InfoComponent(
                 title = "Completed",
-                desc = "$completedTasks/$totalTasks",
+                desc = "$totalCompletedTasks/$totalTasks",
                 icon = R.drawable.ic_task_list,
                 backgroundColor = Green,
                 modifier = Modifier.weight(1f)
@@ -79,7 +83,7 @@ fun HomeScreen(
         }
 
 
-        if (tasks.isEmpty()) {
+        if (incompletedTasks.isEmpty()) {
             EmptyScreenComponent()
         } else {
             Text(
@@ -98,15 +102,15 @@ fun HomeScreen(
                     .fillMaxSize()
                     .padding(16.dp, 0.dp)
             ) {
-                items(items = tasks, key = { it.id }) { it ->
+                items(items = incompletedTasks, key = { it.id }) { it ->
                     TaskComponent(
                         task = it,
                         onUpdate = onEditTask,
-                        onComplete = {it->
+                        onComplete = { it ->
 //                            taskViewModel.getTaskById(taskId)
 //                            taskViewModel.updateIsCompleted(isCompleted =!taskViewModel.task.isCompleted)
 //                            taskViewModel.updateTask(taskViewModel.task)
-                            onEvent(HomeScreenEvent.OnCompleted(it))
+                            onEvent(HomeScreenEvent.OnCompleted(it, true))
 
                         }
                     )
