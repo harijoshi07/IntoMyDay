@@ -33,7 +33,8 @@ import java.time.LocalTime
 
 @Composable
 fun HomeScreen(
-    tasks:List<Task>,
+    tasks: List<Task>,
+    onEvent: (HomeScreenEvent) -> Unit,
     onEditTask: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -97,14 +98,15 @@ fun HomeScreen(
                     .fillMaxSize()
                     .padding(16.dp, 0.dp)
             ) {
-                items(items = tasks, key = { it.id }) {
+                items(items = tasks, key = { it.id }) { it ->
                     TaskComponent(
                         task = it,
                         onUpdate = onEditTask,
-                        onComplete ={taskId->
+                        onComplete = {it->
 //                            taskViewModel.getTaskById(taskId)
 //                            taskViewModel.updateIsCompleted(isCompleted =!taskViewModel.task.isCompleted)
 //                            taskViewModel.updateTask(taskViewModel.task)
+                            onEvent(HomeScreenEvent.onCompleted(it))
 
                         }
                     )
@@ -147,6 +149,7 @@ private fun PrevHomeScreen() {
         HomeScreen(
             tasks = tasks,
             {},
+            {}
         )
     }
 

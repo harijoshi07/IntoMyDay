@@ -73,7 +73,7 @@ fun TaskComponent(
                     onClick = { /*TODO*/ },
                     modifier = Modifier.size(32.dp)
                 ) {
-                    if (task.isCompleted == true) {
+                    if (task.isCompleted) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_check_circle),
                             contentDescription = null,

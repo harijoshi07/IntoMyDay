@@ -48,6 +48,18 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
             initialValue = emptyList()
         )
 
+    fun onEvent(event: HomeScreenEvent){
+        when(event){
+            is HomeScreenEvent.onCompleted->{
+                viewModelScope.launch {
+                    task=repository.getTaskById(event.taskId)
+                    task = task.copy(isCompleted = true)
+                    repository.update(task)
+                }
+            }
+        }
+    }
+
 
     private val deletedTask: Task? = null
 

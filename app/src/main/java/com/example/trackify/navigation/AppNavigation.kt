@@ -25,6 +25,7 @@ fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
             val tasks by taskViewModel.taskList.collectAsState()
             TrackifyApp(
                 tasks,
+                onEvent=taskViewModel::onEvent,
                 onAddTask = {
                     navController.navigate(route = Routes.AddTaskScreen.name)
                 },

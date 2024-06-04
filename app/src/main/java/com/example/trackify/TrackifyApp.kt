@@ -37,6 +37,7 @@ import com.example.trackify.presentation.fontRoboto
 import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.ui.home_screen.TaskViewModel
 import com.example.trackify.ui.home_screen.HomeScreen
+import com.example.trackify.ui.home_screen.HomeScreenEvent
 import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.TrackifyTheme
 import com.example.trackify.ui.theme.Yellow
@@ -45,6 +46,7 @@ import com.example.trackify.ui.theme.Yellow
 @Composable
 fun TrackifyApp(
     tasks:List<Task>,
+    onEvent:(HomeScreenEvent)->Unit,
     onAddTask: () -> Unit,
     onEditTask: (id: Int) -> Unit,
     modifier: Modifier = Modifier
@@ -116,6 +118,7 @@ fun TrackifyApp(
         Column(modifier = Modifier.padding(it)) {
             HomeScreen(
                 tasks,
+                onEvent,
                 onEditTask
             )
         }
