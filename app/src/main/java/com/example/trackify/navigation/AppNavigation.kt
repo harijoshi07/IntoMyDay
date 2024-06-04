@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.trackify.TrackifyApp
-import com.example.trackify.ui.home_screen.TaskViewModel
+import com.example.trackify.ui.TaskViewModel
 import com.example.trackify.ui.add_edit_screen.AddTaskScreen
 import com.example.trackify.ui.add_edit_screen.EditTaskScreen
 

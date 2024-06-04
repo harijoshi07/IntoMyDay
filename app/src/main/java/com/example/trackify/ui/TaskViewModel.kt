@@ -1,4 +1,4 @@
-package com.example.trackify.ui.home_screen
+package com.example.trackify.ui
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.trackify.data.repositories.TaskRepository
 import com.example.trackify.domain.model.Task
 import com.example.trackify.ui.add_edit_screen.AddEditScreenEvent
+import com.example.trackify.ui.home_screen.HomeScreenEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -52,7 +53,7 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
     //Home Screen Events
     fun onEvent(event: HomeScreenEvent){
         when(event){
-            is HomeScreenEvent.OnCompleted->{
+            is HomeScreenEvent.OnCompleted ->{
                 viewModelScope.launch {
                     task=repository.getTaskById(event.taskId)
                     task = task.copy(isCompleted = true)
@@ -71,18 +72,44 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
                 }
             }
 
-            is AddEditScreenEvent.OnDeleteTaskClick -> TODO()
-            is AddEditScreenEvent.OnUpdateTitle -> TODO()
-            is AddEditScreenEvent.OnUpdateStartTime -> TODO()
-            is AddEditScreenEvent.OnUpdateEndTime -> TODO()
-            is AddEditScreenEvent.OnUpdateReminder -> TODO()
-            is AddEditScreenEvent.OnUpdatePriority -> TODO()
-            is AddEditScreenEvent.OnUpdateTask -> TODO()
+            is AddEditScreenEvent.OnDeleteTaskClick -> {
+                viewModelScope.launch {
+                    repository.delete(task)
+                }
+            }
+            is AddEditScreenEvent.OnUpdateTitle -> {
+                viewModelScope.launch {
+                    task=task.copy(title = event.title)
+                }
+            }
+            is AddEditScreenEvent.OnUpdateStartTime -> {
+                viewModelScope.launch {
+                    task=task.copy(startTime = event.startTime)
+                }
+            }
+            is AddEditScreenEvent.OnUpdateEndTime -> {
+                viewModelScope.launch {
+                    task=task.copy(endTime = event.endTime)
+                }
+            }
+            is AddEditScreenEvent.OnUpdateReminder -> {
+                viewModelScope.launch {
+                    task=task.copy(reminder = event.reminder)
+                }
+            }
+            is AddEditScreenEvent.OnUpdatePriority -> {
+                viewModelScope.launch {
+                    task=task.copy(priority = event.priority.ordinal)
+                }
+            }
+            is AddEditScreenEvent.OnUpdateTask ->{
+                viewModelScope.launch {
+                    repository.update(task)
+                }
+            }
         }
     }
 
-
-    private val deletedTask: Task? = null
 
     //inserts a new task into the database via the repository
     //#How data gets inserted?
@@ -93,45 +120,6 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
         }
     }
 
-    fun updateTask(task: Task) {
-        viewModelScope.launch {
-            repository.update(task)
-        }
-    }
-
-    fun deleteTask(task: Task) {
-        viewModelScope.launch {
-            repository.delete(task)
-        }
-    }
-
-    fun updateTitle(title: String) {
-        task = task.copy(title = title)
-    }
-
-    fun updateStartTime(time: LocalTime) {
-        task = task.copy(startTime = time)
-    }
-
-    fun updateEndTime(time: LocalTime) {
-        task = task.copy(endTime = time)
-    }
-
-    fun updateIsCompleted(isCompleted: Boolean) {
-        task = task.copy(isCompleted = isCompleted)
-    }
-
-    fun updateReminder(reminder: Boolean) {
-        task = task.copy(reminder = reminder)
-    }
-
-    fun updateCategory(category: String) {
-        task = task.copy(category = category)
-    }
-
-    fun updatePriority(priority:Int){
-        task=task.copy(priority=priority)
-    }
 
     fun getTaskById(id: Int):Task {
         viewModelScope.launch {
@@ -145,14 +133,4 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
             repository.getAllTasks()
         }
     }
-
-
-    fun undoDeletedTask() {
-        deletedTask?.let {
-            viewModelScope.launch {
-                repository.insert(it)
-            }
-        }
-    }
-
 }

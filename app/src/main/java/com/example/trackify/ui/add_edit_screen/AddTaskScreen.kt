@@ -58,7 +58,6 @@ import com.example.trackify.presentation.h1TextStyle
 import com.example.trackify.presentation.h2TextStyle
 import com.example.trackify.presentation.taskTextStyle
 import com.example.trackify.ui.add_edit_screen.components.PriorityComponent
-import com.example.trackify.ui.home_screen.TaskViewModel
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.LightGray
 import com.example.trackify.ui.theme.Red
