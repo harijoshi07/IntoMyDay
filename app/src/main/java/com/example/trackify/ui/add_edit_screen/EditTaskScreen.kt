@@ -83,10 +83,6 @@ fun EditTaskScreen(
     val context = LocalContext.current
     val focusRequester = FocusRequester()
 
-    var isTaskReminderOn by remember {
-        mutableStateOf(task.reminder)
-    }
-
     var showDialog by remember {
         mutableStateOf(false)
     }
@@ -243,10 +239,9 @@ fun EditTaskScreen(
                         color = Color.White
                     )
                     Switch(
-                        checked = isTaskReminderOn,
+                        checked = task.reminder,
                         onCheckedChange = {
                             onEvent(AddEditScreenEvent.OnUpdateReminder(it))
-                            isTaskReminderOn = it
                                           },
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = Green,
