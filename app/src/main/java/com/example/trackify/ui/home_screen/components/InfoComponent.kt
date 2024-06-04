@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,16 +26,23 @@ import com.example.trackify.presentation.infoDescTextStyle
 import com.example.trackify.presentation.infoTextStyle
 import com.example.trackify.ui.theme.Blue
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InfoComponent(
-    title: String, desc: String, icon: Int, backgroundColor: Color, modifier: Modifier
+    title: String,
+    desc: String,
+    icon: Int,
+    backgroundColor: Color,
+    onClick: () -> Unit,
+    modifier: Modifier
 ) {
 
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
+        onClick = { onClick() }
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -70,6 +78,7 @@ private fun PrevInfoComponent() {
         desc = "1/3",
         icon = R.drawable.ic_task_list,
         backgroundColor = Blue,
+        onClick = {},
         modifier = Modifier
     )
 

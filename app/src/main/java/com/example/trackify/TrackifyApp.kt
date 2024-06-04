@@ -43,10 +43,11 @@ import com.example.trackify.ui.theme.Yellow
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrackifyApp(
-    tasks:List<Task>,
-    onEvent:(HomeScreenEvent)->Unit,
+    tasks: List<Task>,
+    onEvent: (HomeScreenEvent) -> Unit,
     onAddTask: () -> Unit,
     onEditTask: (id: Int) -> Unit,
+    onClickCompletedInfo: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -117,7 +118,8 @@ fun TrackifyApp(
             HomeScreen(
                 tasks,
                 onEvent,
-                onEditTask
+                onEditTask,
+                onClickCompletedInfo
             )
         }
 

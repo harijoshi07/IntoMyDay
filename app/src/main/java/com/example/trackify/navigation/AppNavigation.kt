@@ -14,6 +14,7 @@ import com.example.trackify.TrackifyApp
 import com.example.trackify.ui.TaskViewModel
 import com.example.trackify.ui.add_edit_screen.AddTaskScreen
 import com.example.trackify.ui.add_edit_screen.EditTaskScreen
+import com.example.trackify.ui.completed_task_screen.CompletedTaskScreen
 
 @Composable
 fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
@@ -26,12 +27,15 @@ fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
             val tasks by taskViewModel.taskList.collectAsState()
             TrackifyApp(
                 tasks,
-                onEvent=taskViewModel::onEvent,
+                onEvent = taskViewModel::onEvent,
                 onAddTask = {
                     navController.navigate(route = Routes.AddTaskScreen.name)
                 },
                 onEditTask = { id ->
                     navController.navigate(route = "${Routes.EditTaskScreen.name}/$id")
+                },
+                onClickCompletedInfo = {
+                    navController.navigate(route = Routes.CompletedTaskScreen.name)
                 }
             )
         }
@@ -52,14 +56,23 @@ fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
             navBackStackEntry.arguments?.getInt("id").let { id ->
                 LaunchedEffect(key1 = true) {
                     taskViewModel.getTaskById(id!!)
-                    
+
                 }
                 EditTaskScreen(
                     task = taskViewModel.task,
-                    onEvent=taskViewModel::onEvent,
+                    onEvent = taskViewModel::onEvent,
                     onBack = { navController.popBackStack() },
                 )
             }
+        }
+
+        composable(route = Routes.CompletedTaskScreen.name) {
+            val tasks by taskViewModel.taskList.collectAsState()
+            CompletedTaskScreen(
+                tasks = tasks,
+                onEvent = taskViewModel::onEvent,
+                onClose = { navController.popBackStack() }
+            )
         }
     }
 

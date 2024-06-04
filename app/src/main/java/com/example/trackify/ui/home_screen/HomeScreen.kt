@@ -36,6 +36,7 @@ fun HomeScreen(
     tasks: List<Task>,
     onEvent: (HomeScreenEvent) -> Unit,
     onEditTask: (Int) -> Unit,
+    onClickCompletedInfo:()->Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -65,10 +66,11 @@ fun HomeScreen(
         ) {
             InfoComponent(
                 title = "Completed",
-                desc = "$totalCompletedTasks/$totalTasks",
+                desc = "$totalCompletedTasks/$totalTasks Tasks",
                 icon = R.drawable.ic_task_list,
                 backgroundColor = Green,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                onClick = { onClickCompletedInfo() }
 
             )
 
@@ -77,7 +79,8 @@ fun HomeScreen(
                 desc = "3 hours",
                 icon = R.drawable.ic_clock,
                 backgroundColor = Blue,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                onClick = {}
 
             )
         }
@@ -152,6 +155,7 @@ private fun PrevHomeScreen() {
         )
         HomeScreen(
             tasks = tasks,
+            {},
             {},
             {}
         )
