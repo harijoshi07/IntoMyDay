@@ -53,6 +53,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.commandiron.wheel_picker_compose.WheelTimePicker
@@ -67,7 +68,9 @@ import com.example.trackify.ui.add_edit_screen.components.PriorityComponent
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.LightGray
 import com.example.trackify.ui.theme.Red
+import com.example.trackify.ui.theme.TrackifyTheme
 import com.example.trackify.ui.theme.Yellow
+import com.example.trackify.util.Priority
 
 import kotlinx.coroutines.job
 import java.time.LocalTime
@@ -75,23 +78,18 @@ import java.time.LocalTime
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditTaskScreen(
-    taskId: Int,
-    taskViewModel: TaskViewModel,
+    task: Task,
+    onEvent: (AddEditScreenEvent) -> Unit,
     onBack: () -> Unit
 ) {
-    val taskTitle = taskViewModel.task.title
-    val taskStartTime = taskViewModel.task.startTime
-    val taskEndTime = taskViewModel.task.endTime
+    val taskStartTime = task.startTime
+    val taskEndTime = task.endTime
 
     val context = LocalContext.current
     val focusRequester = FocusRequester()
 
-    var taskPriority by remember {
-        mutableIntStateOf(taskViewModel.task.priority)
-    }
-
     var isTaskReminderOn by remember {
-        mutableStateOf(taskViewModel.task.reminder)
+        mutableStateOf(task.reminder)
     }
 
     var showDialog by remember {
@@ -100,10 +98,10 @@ fun EditTaskScreen(
 
 
 
-    LaunchedEffect(key1 = true,
-        block = {
-            taskViewModel.getTaskById(taskId)
-        })
+//    LaunchedEffect(key1 = true,
+//        block = {
+//            taskViewModel.getTaskById(taskId)
+//        })
 
     Scaffold(topBar = {
         TopAppBar(modifier = Modifier.padding(8.dp),
@@ -149,7 +147,7 @@ fun EditTaskScreen(
             ConfirmDeleteDialog(
                 onClose = { showDialog = false },
                 onDelete = {
-                    taskViewModel.deleteTask(taskViewModel.task)
+                    onEvent(AddEditScreenEvent.OnDeleteTaskClick(task))
                     showDialog = false
                     onBack()
                 }
@@ -168,9 +166,9 @@ fun EditTaskScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 OutlinedTextField(
-                    value = taskTitle,
+                    value = task.title,
                     onValueChange = {
-                        taskViewModel.updateTitle(it)
+                        onEvent(AddEditScreenEvent.OnUpdateTitle(it))
                     },
                     textStyle = h2TextStyle,
                     placeholder = {
@@ -208,13 +206,13 @@ fun EditTaskScreen(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         WheelTimePicker(
-                            startTime = LocalTime.now(),
+                            startTime = task.startTime,
                             minTime = LocalTime.now(),
                             maxTime = LocalTime.MAX,
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
-                            taskViewModel.updateStartTime(it)
+                            onEvent(AddEditScreenEvent.OnUpdateStartTime(it))
                         }
                     }
 
@@ -226,13 +224,13 @@ fun EditTaskScreen(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         WheelTimePicker(
-                            startTime = LocalTime.now().plusHours(1),
+                            startTime = task.endTime,
                             minTime = LocalTime.now().plusMinutes(5),
                             maxTime = LocalTime.MAX,
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
-                            taskViewModel.updateEndTime(it)
+                            onEvent(AddEditScreenEvent.OnUpdateEndTime(it))
                         }
                     }
                 }
@@ -252,7 +250,7 @@ fun EditTaskScreen(
                     Switch(
                         checked = isTaskReminderOn,
                         onCheckedChange = {
-                            taskViewModel.updateReminder(it)
+                            onEvent(AddEditScreenEvent.OnUpdateReminder(it))
                             isTaskReminderOn = it
                                           },
                         colors = SwitchDefaults.colors(
@@ -278,21 +276,21 @@ fun EditTaskScreen(
                         title = "Low",
                         backgroundColor = LightGray,
                         modifier = Modifier.weight(0.3f),
-                        onClick = { taskViewModel.updatePriority(0) }
+                        onClick = { onEvent(AddEditScreenEvent.OnUpdatePriority(Priority.Low)) }
                     )
 
                     PriorityComponent(
                         title = "Medium",
                         backgroundColor = Yellow,
                         modifier = Modifier.weight(0.4f),
-                        onClick = { taskViewModel.updatePriority(1) }
+                        onClick = { onEvent(AddEditScreenEvent.OnUpdatePriority(Priority.Medium)) }
                     )
 
                     PriorityComponent(
                         title = "High",
                         backgroundColor = Red,
                         modifier = Modifier.weight(0.3f),
-                        onClick = { taskViewModel.updatePriority(2) }
+                        onClick = {onEvent(AddEditScreenEvent.OnUpdatePriority(Priority.High))}
                     )
                 }
 
@@ -311,9 +309,9 @@ fun EditTaskScreen(
 
                         TextButton(
                             onClick = {
-                                if (taskTitle.isNotEmpty()) {
+                                if (task.title.isNotEmpty()) {
 
-                                    taskViewModel.updateTask(taskViewModel.task)
+                                   onEvent(AddEditScreenEvent.OnUpdateTask())
                                     onBack()
                                 } else if (taskStartTime >= taskEndTime) {
                                     Toast.makeText(
@@ -350,5 +348,29 @@ fun EditTaskScreen(
                 }
             }
         }
+    }
+}
+
+
+@Preview
+@Composable
+fun EditTaskScreenPreview() {
+    TrackifyTheme(
+        darkTheme = true,
+        dynamicColor = false
+    ) {
+        val task = Task(
+            id = 1,
+            title = "Learn Kotlin",
+            isCompleted = false,
+            startTime = LocalTime.now(),
+            endTime = LocalTime.now(),
+            reminder = true,
+            category = "",
+            priority = 0
+        )
+        EditTaskScreen(task,
+            {},
+            {})
     }
 }
