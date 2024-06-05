@@ -11,4 +11,10 @@
     <string name="reminder">Reminder</string>
     <string name="what_would_you_like_to_do">What would you like to do?</string>
     <string name="update_task">Update Task</string>
+    <string name="development">development\n</string>
+    <string name="_32_10">32:10\n</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="work">Work</string>
+    <string name="rasion_project">Rasion Project</string>
 </resources>
