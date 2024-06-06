@@ -36,6 +36,7 @@ import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.LightGray
 import com.example.trackify.ui.theme.Red
+import com.example.trackify.ui.theme.TimerGrayColor
 import com.example.trackify.ui.theme.Yellow
 import java.time.LocalTime
 
@@ -59,6 +60,7 @@ fun TaskComponent(
                 .fillMaxWidth()
                 .background(
                     color = MaterialTheme.colorScheme.secondary,
+                    //color = TimerGrayColor,
                     RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp)
                 )
                 .padding(8.dp)

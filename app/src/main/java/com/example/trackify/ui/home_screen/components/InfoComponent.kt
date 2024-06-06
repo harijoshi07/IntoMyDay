@@ -25,6 +25,7 @@ import com.example.trackify.R
 import com.example.trackify.presentation.infoDescTextStyle
 import com.example.trackify.presentation.infoTextStyle
 import com.example.trackify.ui.theme.Blue
+import com.example.trackify.ui.theme.TimerGrayColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +41,7 @@ fun InfoComponent(
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = backgroundColor),
+        colors = CardDefaults.cardColors(containerColor = backgroundColor, contentColor = Color.Gray),
         elevation = CardDefaults.cardElevation(4.dp),
         onClick = { onClick() }
     ) {

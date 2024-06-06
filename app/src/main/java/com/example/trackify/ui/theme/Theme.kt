@@ -17,8 +17,10 @@ import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = Blue500,
-    secondary = Blue200,
-    background = Blue500,
+    secondary = TimerDarkPurple,
+    background = TimerDarkColor,
+//    secondary = Blue200,
+//    background = Blue500,
 )
 
 private val LightColorScheme = lightColorScheme(
