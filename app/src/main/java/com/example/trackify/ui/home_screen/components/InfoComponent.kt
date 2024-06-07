@@ -41,7 +41,7 @@ fun InfoComponent(
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = backgroundColor, contentColor = Color.Gray),
+        colors = CardDefaults.cardColors(containerColor = backgroundColor, contentColor = Color.Black),
         elevation = CardDefaults.cardElevation(4.dp),
         onClick = { onClick() }
     ) {

@@ -1,0 +1,20 @@
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-02-22 13:26 EST
+NSE: Loaded 151 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 13:26
+Completed NSE at 13:26, 0.00s elapsed
+Initiating Ping Scan at 13:26
+Scanning localhost (127.0.0.1) [2 ports]
+Completed Ping Scan at 13:26, 0.00s elapsed (1 total hosts)
+Initiating Connect Scan at 13:26
+Scanning localhost (127.0.0.1) [65535 ports]
+Discovered open port 4330/tcp on 127.0.0.1
+Discovered open port 9050/tcp on 127.0.0.1
+Discovered open port 902/tcp on 127.0.0.1
+Discovered open port 631/tcp on 127.0.0.1
+Discovered open port 4000/tcp on 127.0.0.1
+Discovered open port 43435/tcp on 127.0.0.1
+Discovered open port 18083/tcp on 127.0.0.1
+Discovered open port 44321/tcp on 127.0.0.1
+Discovered open port 44322/tcp on 127.0.0.1
+Discovered open port 43291/tcp on 127.0.0.1
