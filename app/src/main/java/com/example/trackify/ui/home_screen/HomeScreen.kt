@@ -1,7 +1,9 @@
 package com.example.trackify.ui.home_screen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,6 +35,7 @@ import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.TrackifyTheme
 import java.time.LocalTime
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     tasks: List<Task>,
@@ -109,17 +112,19 @@ fun HomeScreen(
                     .padding(16.dp, 0.dp)
             ) {
                 items(items = incompletedTasks, key = { it.id }) { it ->
-                    TaskComponent(
-                        task = it,
-                        onUpdate = onEditTask,
-                        onComplete = { it ->
+                   Box(modifier = Modifier.animateItemPlacement()){
+                       TaskComponent(
+                           task = it,
+                           onUpdate = onEditTask,
+                           onComplete = { it ->
 //                            taskViewModel.getTaskById(taskId)
 //                            taskViewModel.updateIsCompleted(isCompleted =!taskViewModel.task.isCompleted)
 //                            taskViewModel.updateTask(taskViewModel.task)
-                            onEvent(HomeScreenEvent.OnCompleted(it, true))
+                               onEvent(HomeScreenEvent.OnCompleted(it, true))
 
-                        }
-                    )
+                           }
+                       )
+                   }
                     Spacer(modifier = Modifier.height(10.dp))
                 }
             }
