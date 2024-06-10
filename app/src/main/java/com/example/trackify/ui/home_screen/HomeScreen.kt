@@ -121,7 +121,6 @@ fun HomeScreen(
 //                            taskViewModel.updateIsCompleted(isCompleted =!taskViewModel.task.isCompleted)
 //                            taskViewModel.updateTask(taskViewModel.task)
                                onEvent(HomeScreenEvent.OnCompleted(it, true))
-
                            }
                        )
                    }
