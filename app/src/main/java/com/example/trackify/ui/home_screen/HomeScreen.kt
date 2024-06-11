@@ -77,7 +77,6 @@ fun HomeScreen(
                 backgroundColor = Green,
                 modifier = Modifier.weight(1f),
                 onClick = { onClickCompletedInfo() }
-
             )
 
             InfoComponent(
@@ -87,7 +86,6 @@ fun HomeScreen(
                 backgroundColor = Blue,
                 modifier = Modifier.weight(1f),
                 onClick = {}
-
             )
         }
 
