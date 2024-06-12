@@ -92,7 +92,8 @@ fun CompletedTaskScreen(
                                             false
                                         )
                                     )
-                                }
+                                },
+                                onPomodoro = {}
                             )
                         }
                         Spacer(modifier = Modifier.height(10.dp))

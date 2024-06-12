@@ -48,6 +48,7 @@ fun TaskComponent(
     task: Task,
     onUpdate: (Int) -> Unit,
     onComplete: (Int) -> Unit,
+    onPomodoro:(Int)->Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -125,20 +126,31 @@ fun TaskComponent(
                                 style = taskDescTextStyle,
                                 color = LightGray
                             )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            if (task.reminder){
+                                Icon(
+                                    imageVector = Icons.Default.Notifications,
+                                    contentDescription = null,
+                                    tint = LightGray,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
                         }
 
                     }
 
-                    if (task.reminder){
+                    IconButton(onClick = {onPomodoro(task.id)}) {
                         Icon(
-                            imageVector = Icons.Default.Notifications,
+                            painter = painterResource(id = R.drawable.timer),
                             contentDescription = null,
-                            tint = LightGray,
-                            modifier = Modifier.size(20.dp)
+                            tint = LightGray
                         )
+
                     }
                 }
+
             }
+
         }
     }
 
@@ -158,6 +170,7 @@ private fun TaskComponentPreview() {
             category = "others"
         ),
         onUpdate = {},
-        onComplete = {}
+        onComplete = {},
+        onPomodoro = {}
     )
 }
