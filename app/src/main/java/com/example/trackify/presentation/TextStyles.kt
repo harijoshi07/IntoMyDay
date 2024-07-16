@@ -54,3 +54,8 @@ var compTextStyle = TextStyle(
     fontFamily = FontFamily.Monospace,
     color = Color.White
 )
+
+var timerTextStyle = TextStyle(
+    fontSize = 42.sp,
+    fontFamily = fontMontserrat
+)

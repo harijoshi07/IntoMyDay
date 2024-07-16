@@ -25,7 +25,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -51,6 +56,7 @@ import com.example.trackify.ui.theme.TimerDarkPurple
 import com.example.trackify.ui.theme.TimerGrayColor
 import com.example.trackify.ui.theme.TimerLightDarkBlue
 import com.example.trackify.ui.theme.TimerLinearGradient
+import kotlinx.coroutines.delay
 import java.time.LocalTime
 
 
@@ -61,6 +67,21 @@ fun PomodoroScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    var timeLeft by remember {
+        mutableLongStateOf(30)
+    }
+
+    var isPaused by remember {
+        mutableStateOf(false)
+    }
+
+    LaunchedEffect(key1 = timeLeft, key2 = isPaused) {
+        while (timeLeft > 0 && !isPaused) {
+            delay(1000)
+            timeLeft--
+        }
+    }
     
     Scaffold(
         topBar = {
@@ -109,7 +130,7 @@ fun PomodoroScreen(
                 )
             }
             Spacer(modifier = Modifier.height(80.dp))
-            DrawCircularProgress()
+            DrawCircularProgress(progress = timeLeft.toString())
 
             Spacer(modifier = Modifier.height(80.dp))
             Row(
@@ -156,6 +177,7 @@ fun PomodoroScreen(
 
 @Composable
 private fun DrawCircularProgress(
+    progress:String,
     modifier: Modifier = Modifier
 ) {
     val textMeasure = rememberTextMeasurer()
@@ -165,7 +187,8 @@ private fun DrawCircularProgress(
         fontFamily = fontMontserrat,
         fontWeight = FontWeight.ExtraBold
     )
-    val textToDraw = stringResource(R.string._32_10)
+    //val textToDraw = stringResource(R.string._32_10)
+    val textToDraw = progress
     val textLayoutResult = remember(textToDraw) {
         textMeasure.measure(textToDraw, style)
     }
