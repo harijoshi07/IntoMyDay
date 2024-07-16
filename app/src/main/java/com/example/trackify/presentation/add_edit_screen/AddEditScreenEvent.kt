@@ -1,4 +1,4 @@
-package com.example.trackify.ui.add_edit_screen
+package com.example.trackify.presentation.add_edit_screen
 
 import com.example.trackify.domain.model.Task
 import com.example.trackify.util.Priority

@@ -34,8 +34,8 @@ import androidx.compose.ui.unit.sp
 import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.fontRoboto
 import com.example.trackify.presentation.h1TextStyle
-import com.example.trackify.ui.home_screen.HomeScreen
-import com.example.trackify.ui.home_screen.HomeScreenEvent
+import com.example.trackify.presentation.home_screen.HomeScreen
+import com.example.trackify.presentation.home_screen.HomeScreenEvent
 import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.TrackifyTheme
 import com.example.trackify.ui.theme.Yellow

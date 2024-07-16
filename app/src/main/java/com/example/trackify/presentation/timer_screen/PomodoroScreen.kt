@@ -1,4 +1,4 @@
-package com.example.trackify.ui.timer_screen
+package com.example.trackify.presentation.timer_screen
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -51,11 +51,12 @@ import com.example.trackify.ui.theme.TimerDarkPurple
 import com.example.trackify.ui.theme.TimerGrayColor
 import com.example.trackify.ui.theme.TimerLightDarkBlue
 import com.example.trackify.ui.theme.TimerLinearGradient
+import java.time.LocalTime
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TimerScreen(
+fun PomodoroScreen(
     task: Task,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
@@ -197,7 +198,20 @@ private fun DrawCircularProgress(
 
 @Preview
 @Composable
-private fun TimerScreenPreview() {
-    {}
+private fun PomodoroScreenPreview() {
+    PomodoroScreen(
+        task = Task(
+            id = 1,
+            title = "Learn Kotlin",
+            isCompleted = false,
+            startTime = LocalTime.now(),
+            endTime = LocalTime.now(),
+            reminder = true,
+            category = "",
+            priority = 0
+
+        )
+        , onBack = { /*TODO*/ })
+
 
 }

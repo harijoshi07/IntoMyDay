@@ -1,4 +1,4 @@
-package com.example.trackify.ui.add_edit_screen.components
+package com.example.trackify.presentation.add_edit_screen.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

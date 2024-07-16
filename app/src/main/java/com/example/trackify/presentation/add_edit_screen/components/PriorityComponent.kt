@@ -1,4 +1,4 @@
-package com.example.trackify.ui.add_edit_screen.components
+package com.example.trackify.presentation.add_edit_screen.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

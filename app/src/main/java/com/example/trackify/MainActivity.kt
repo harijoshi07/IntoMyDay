@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.example.trackify.navigation.AppNavigation
-import com.example.trackify.ui.TaskViewModel
 import com.example.trackify.ui.theme.TrackifyTheme
 import dagger.hilt.android.AndroidEntryPoint
 

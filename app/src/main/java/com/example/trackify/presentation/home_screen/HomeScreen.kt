@@ -1,4 +1,4 @@
-package com.example.trackify.ui.home_screen
+package com.example.trackify.presentation.home_screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -27,9 +27,9 @@ import androidx.compose.ui.unit.dp
 import com.example.trackify.R
 import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.h2TextStyle
-import com.example.trackify.ui.home_screen.components.EmptyScreenComponent
-import com.example.trackify.ui.home_screen.components.InfoComponent
-import com.example.trackify.ui.home_screen.components.TaskComponent
+import com.example.trackify.presentation.home_screen.components.EmptyScreenComponent
+import com.example.trackify.presentation.home_screen.components.InfoComponent
+import com.example.trackify.presentation.home_screen.components.TaskComponent
 import com.example.trackify.ui.theme.Blue
 import com.example.trackify.ui.theme.Green
 import com.example.trackify.ui.theme.TrackifyTheme

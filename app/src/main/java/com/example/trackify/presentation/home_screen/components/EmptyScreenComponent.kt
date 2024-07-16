@@ -1,4 +1,4 @@
-package com.example.trackify.ui.home_screen.components
+package com.example.trackify.presentation.home_screen.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.example.trackify.ui
+package com.example.trackify
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackify.data.repositories.TaskRepository
 import com.example.trackify.domain.model.Task
-import com.example.trackify.ui.add_edit_screen.AddEditScreenEvent
-import com.example.trackify.ui.home_screen.HomeScreenEvent
+import com.example.trackify.presentation.add_edit_screen.AddEditScreenEvent
+import com.example.trackify.presentation.home_screen.HomeScreenEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

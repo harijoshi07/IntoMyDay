@@ -11,12 +11,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.trackify.TrackifyApp
-import com.example.trackify.ui.TaskViewModel
-import com.example.trackify.ui.add_edit_screen.AddTaskScreen
-import com.example.trackify.ui.add_edit_screen.EditTaskScreen
-import com.example.trackify.ui.completed_task_screen.CompletedTaskScreen
-import com.example.trackify.ui.timer_screen.TimerScreen
-import java.util.Timer
+import com.example.trackify.TaskViewModel
+import com.example.trackify.presentation.add_edit_screen.AddTaskScreen
+import com.example.trackify.presentation.add_edit_screen.EditTaskScreen
+import com.example.trackify.presentation.completed_task_screen.CompletedTaskScreen
+import com.example.trackify.presentation.timer_screen.PomodoroScreen
 
 @Composable
 fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
@@ -91,7 +90,7 @@ fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
                 LaunchedEffect(key1 = true) {
                     taskViewModel.getTaskById(id!!)
                 }
-                TimerScreen(
+                PomodoroScreen(
                     task = taskViewModel.task,
                     onBack = {navController.popBackStack()}
                 )

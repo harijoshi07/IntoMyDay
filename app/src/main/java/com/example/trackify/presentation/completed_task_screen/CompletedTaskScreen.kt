@@ -1,4 +1,4 @@
-package com.example.trackify.ui.completed_task_screen
+package com.example.trackify.presentation.completed_task_screen
 
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -26,9 +26,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.h1TextStyle
-import com.example.trackify.ui.home_screen.HomeScreenEvent
-import com.example.trackify.ui.home_screen.components.EmptyScreenComponent
-import com.example.trackify.ui.home_screen.components.TaskComponent
+import com.example.trackify.presentation.home_screen.HomeScreenEvent
+import com.example.trackify.presentation.home_screen.components.EmptyScreenComponent
+import com.example.trackify.presentation.home_screen.components.TaskComponent
 import com.example.trackify.ui.theme.TrackifyTheme
 import java.time.LocalTime
 
