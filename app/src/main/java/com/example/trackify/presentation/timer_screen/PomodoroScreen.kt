@@ -69,7 +69,7 @@ fun PomodoroScreen(
 ) {
 
     var timeLeft by remember {
-        mutableLongStateOf(30)
+        mutableLongStateOf(task.getDuration())
     }
 
     var isPaused by remember {
@@ -78,7 +78,7 @@ fun PomodoroScreen(
 
     LaunchedEffect(key1 = timeLeft, key2 = isPaused) {
         while (timeLeft > 0 && !isPaused) {
-            delay(1000)
+            delay(1000L)
             timeLeft--
         }
     }
@@ -130,7 +130,10 @@ fun PomodoroScreen(
                 )
             }
             Spacer(modifier = Modifier.height(80.dp))
-            DrawCircularProgress(progress = timeLeft.toString())
+            DrawCircularProgress(
+                text = task.getFormattedDuration(timeLeft),
+                progress = timeLeft.toFloat()
+            )
 
             Spacer(modifier = Modifier.height(80.dp))
             Row(
@@ -177,9 +180,13 @@ fun PomodoroScreen(
 
 @Composable
 private fun DrawCircularProgress(
-    progress:String,
+    text:String,
+    progress:Float = 10f,
     modifier: Modifier = Modifier
 ) {
+
+    val progressMax:Float = 100f
+
     val textMeasure = rememberTextMeasurer()
     val style = TextStyle(
         fontSize = 40.sp,
@@ -188,7 +195,7 @@ private fun DrawCircularProgress(
         fontWeight = FontWeight.ExtraBold
     )
     //val textToDraw = stringResource(R.string._32_10)
-    val textToDraw = progress
+    val textToDraw = text
     val textLayoutResult = remember(textToDraw) {
         textMeasure.measure(textToDraw, style)
     }
@@ -202,8 +209,8 @@ private fun DrawCircularProgress(
         )
         drawArc(
             brush = TimerLinearGradient,
-            sweepAngle = 220f,
             startAngle = -90f,
+            sweepAngle = (progress/progressMax)*360f,
             useCenter = false,
             style = Stroke(16.dp.toPx(), cap = StrokeCap.Round)
         )
@@ -227,8 +234,8 @@ private fun PomodoroScreenPreview() {
             id = 1,
             title = "Learn Kotlin",
             isCompleted = false,
-            startTime = LocalTime.now(),
-            endTime = LocalTime.now(),
+            startTime = LocalTime.of(10,0),
+            endTime = LocalTime.of(11,0),
             reminder = true,
             category = "",
             priority = 0

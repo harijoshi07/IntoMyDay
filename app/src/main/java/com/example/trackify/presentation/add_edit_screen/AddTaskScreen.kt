@@ -181,8 +181,6 @@ fun AddTaskScreen(
                         Spacer(modifier = Modifier.height(8.dp))
                         WheelTimePicker(
                             startTime = LocalTime.now(),
-                            minTime = LocalTime.now(),
-                            maxTime = LocalTime.MAX,
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
@@ -199,8 +197,6 @@ fun AddTaskScreen(
                         Spacer(modifier = Modifier.height(8.dp))
                         WheelTimePicker(
                             startTime = LocalTime.now().plusHours(1),
-                            minTime = LocalTime.now().plusMinutes(5),
-                            maxTime = LocalTime.MAX,
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
