@@ -111,4 +111,7 @@ dependencies {
     //gson
     implementation("com.google.code.gson:gson:2.11.0")
 
+    //material icons extended
+    implementation("androidx.compose.material:material-icons-extended:1.6.8")
+
 }

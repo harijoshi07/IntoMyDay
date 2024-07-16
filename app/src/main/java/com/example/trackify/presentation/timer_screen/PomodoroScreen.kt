@@ -160,7 +160,7 @@ fun PomodoroScreen(
                         isPaused = !isPaused
                     }) {
                         Icon(
-                            painter = painterResource(id = R.drawable.pause),
+                            painter = if(isPaused)painterResource(id = R.drawable.play) else painterResource(id = R.drawable.pause),
                             contentDescription = "",
                             tint = Color.White,
                             modifier = Modifier.drawBehind {
@@ -168,7 +168,7 @@ fun PomodoroScreen(
                             }
                         )
                     }
-                    Text(text = "Pause", color = TimerGrayColor)
+                    Text(text = if(isPaused) "Play" else "Pause", color = TimerGrayColor)
                 }
 
                 Spacer(modifier = Modifier.width(60.dp))
