@@ -68,8 +68,18 @@ fun PomodoroScreen(
     modifier: Modifier = Modifier
 ) {
 
+    var totalTime by remember {
+        mutableLongStateOf(0)
+    }
+
     var timeLeft by remember {
-        mutableLongStateOf(task.getDuration())
+        mutableLongStateOf(0)
+        //mutableLongStateOf(task.getDuration())
+    }
+
+    if (task.title.isNotEmpty() && totalTime ==0L){
+        totalTime = task.getDuration()
+        timeLeft = task.getDuration()
     }
 
     var isPaused by remember {
@@ -130,9 +140,11 @@ fun PomodoroScreen(
                 )
             }
             Spacer(modifier = Modifier.height(80.dp))
+
+            val calcProgress = 100f - ((timeLeft.toFloat() / totalTime.toFloat()) * 100f)
             DrawCircularProgress(
                 text = task.getFormattedDuration(timeLeft),
-                progress = timeLeft.toFloat()
+                progress = calcProgress
             )
 
             Spacer(modifier = Modifier.height(80.dp))
@@ -234,8 +246,8 @@ private fun PomodoroScreenPreview() {
             id = 1,
             title = "Learn Kotlin",
             isCompleted = false,
-            startTime = LocalTime.of(10,0),
-            endTime = LocalTime.of(11,0),
+            startTime = LocalTime.of(0,3,0),
+            endTime = LocalTime.of(0,5,0),
             reminder = true,
             category = "",
             priority = 0
