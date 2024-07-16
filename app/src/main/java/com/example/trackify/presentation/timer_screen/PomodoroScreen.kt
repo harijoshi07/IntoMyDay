@@ -156,7 +156,9 @@ fun PomodoroScreen(
                     .fillMaxWidth()
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        isPaused = !isPaused
+                    }) {
                         Icon(
                             painter = painterResource(id = R.drawable.pause),
                             contentDescription = "",
@@ -172,7 +174,10 @@ fun PomodoroScreen(
                 Spacer(modifier = Modifier.width(60.dp))
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        timeLeft= totalTime
+                        isPaused = true
+                    }) {
                         Icon(
                             painter = painterResource(id = R.drawable.stop),
                             contentDescription = "",
