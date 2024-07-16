@@ -42,6 +42,7 @@ fun HomeScreen(
     onEvent: (HomeScreenEvent) -> Unit,
     onEditTask: (Int) -> Unit,
     onClickCompletedInfo:()->Unit,
+    onPomodoroTask:(id: Int)->Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -120,7 +121,7 @@ fun HomeScreen(
 //                            taskViewModel.updateTask(taskViewModel.task)
                                onEvent(HomeScreenEvent.OnCompleted(it, true))
                            },
-                           onPomodoro = {}
+                           onPomodoro = onPomodoroTask
                        )
                    }
                     Spacer(modifier = Modifier.height(10.dp))
@@ -161,6 +162,7 @@ private fun PrevHomeScreen() {
         )
         HomeScreen(
             tasks = tasks,
+            {},
             {},
             {},
             {}

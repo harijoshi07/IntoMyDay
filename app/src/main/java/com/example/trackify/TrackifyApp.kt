@@ -48,6 +48,7 @@ fun TrackifyApp(
     onAddTask: () -> Unit,
     onEditTask: (id: Int) -> Unit,
     onClickCompletedInfo: () -> Unit,
+    onPomodoroTask:(id: Int)->Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -119,7 +120,8 @@ fun TrackifyApp(
                 tasks,
                 onEvent,
                 onEditTask,
-                onClickCompletedInfo
+                onClickCompletedInfo,
+                onPomodoroTask
             )
         }
 

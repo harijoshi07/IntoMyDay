@@ -139,13 +139,14 @@ fun TaskComponent(
 
                     }
 
-                    IconButton(onClick = {onPomodoro(task.id)}) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.timer),
-                            contentDescription = null,
-                            tint = LightGray
-                        )
-
+                    if (!task.isCompleted) {
+                        IconButton(onClick = {onPomodoro(task.id)}) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.timer),
+                                contentDescription = null,
+                                tint = LightGray
+                            )
+                        }
                     }
                 }
 

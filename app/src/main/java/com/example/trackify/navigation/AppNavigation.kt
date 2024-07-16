@@ -15,6 +15,8 @@ import com.example.trackify.ui.TaskViewModel
 import com.example.trackify.ui.add_edit_screen.AddTaskScreen
 import com.example.trackify.ui.add_edit_screen.EditTaskScreen
 import com.example.trackify.ui.completed_task_screen.CompletedTaskScreen
+import com.example.trackify.ui.timer_screen.TimerScreen
+import java.util.Timer
 
 @Composable
 fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
@@ -36,6 +38,9 @@ fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
                 },
                 onClickCompletedInfo = {
                     navController.navigate(route = Routes.CompletedTaskScreen.name)
+                },
+                onPomodoroTask = {id->
+                    navController.navigate(route = "${Routes.PomodoroScreen.name}/$id")
                 }
             )
         }
@@ -74,6 +79,23 @@ fun AppNavigation(taskViewModel: TaskViewModel, modifier: Modifier = Modifier) {
                 onClose = { navController.popBackStack() }
             )
         }
+        
+        composable(
+            route="${Routes.PomodoroScreen.name}/{id}",
+            arguments = listOf(navArgument("id"){
+                type=NavType.IntType
+            })
+        )
+        {navBackStackEntry->
+            navBackStackEntry.arguments?.getInt("id").let { id->
+                LaunchedEffect(key1 = true) {
+                    taskViewModel.getTaskById(id!!)
+                }
+                TimerScreen(
+                    task = taskViewModel.task,
+                    onBack = {navController.popBackStack()}
+                )
+            }
+        }
     }
-
 }

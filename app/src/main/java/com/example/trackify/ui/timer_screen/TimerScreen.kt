@@ -43,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.trackify.R
+import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.fontMontserrat
 import com.example.trackify.presentation.taskTextStyle
 import com.example.trackify.ui.theme.TimerDarkColor
@@ -55,7 +56,8 @@ import com.example.trackify.ui.theme.TimerLinearGradient
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimerScreen(
-    onClose: () -> Unit,
+    task: Task,
+    onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     
@@ -69,7 +71,7 @@ fun TimerScreen(
                     Text(text = "")
                 },
                 navigationIcon = {
-                    IconButton(onClick = { onClose() }) {
+                    IconButton(onClick = { onBack() }) {
                         Icon(
                             imageVector = Icons.Rounded.ArrowBack,
                             contentDescription = "",
@@ -196,6 +198,6 @@ private fun DrawCircularProgress(
 @Preview
 @Composable
 private fun TimerScreenPreview() {
-    TimerScreen({})
+    {}
 
 }
