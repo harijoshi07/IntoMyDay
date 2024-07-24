@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -50,6 +51,7 @@ import androidx.compose.ui.unit.sp
 import com.example.trackify.R
 import com.example.trackify.domain.model.Task
 import com.example.trackify.presentation.fontMontserrat
+import com.example.trackify.presentation.home_screen.HomeScreenEvent
 import com.example.trackify.presentation.taskTextStyle
 import com.example.trackify.ui.theme.TimerDarkColor
 import com.example.trackify.ui.theme.TimerDarkPurple
@@ -64,6 +66,7 @@ import java.time.LocalTime
 @Composable
 fun PomodoroScreen(
     task: Task,
+    onEvent: (HomeScreenEvent) -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -77,7 +80,7 @@ fun PomodoroScreen(
         //mutableLongStateOf(task.getDuration())
     }
 
-    if (task.title.isNotEmpty() && totalTime ==0L){
+    if (task.title.isNotEmpty() && totalTime == 0L) {
         totalTime = task.getDuration()
         timeLeft = task.getDuration()
     }
@@ -92,7 +95,7 @@ fun PomodoroScreen(
             timeLeft--
         }
     }
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -111,6 +114,23 @@ fun PomodoroScreen(
                         )
                     }
                 },
+                actions = {
+                    IconButton(onClick = {
+                        onEvent(
+                            HomeScreenEvent.OnCompleted(
+                                taskId = task.id,
+                                isCompleted = true
+                            )
+                        )
+                        onBack()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = null
+                        )
+
+                    }
+                }
             )
         }
     ) {
@@ -160,7 +180,9 @@ fun PomodoroScreen(
                         isPaused = !isPaused
                     }) {
                         Icon(
-                            painter = if(isPaused)painterResource(id = R.drawable.play) else painterResource(id = R.drawable.pause),
+                            painter = if (isPaused) painterResource(id = R.drawable.play) else painterResource(
+                                id = R.drawable.pause
+                            ),
                             contentDescription = "",
                             tint = Color.White,
                             modifier = Modifier.drawBehind {
@@ -168,14 +190,14 @@ fun PomodoroScreen(
                             }
                         )
                     }
-                    Text(text = if(isPaused) "Play" else "Pause", color = TimerGrayColor)
+                    Text(text = if (isPaused) "Play" else "Pause", color = TimerGrayColor)
                 }
 
                 Spacer(modifier = Modifier.width(60.dp))
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     IconButton(onClick = {
-                        timeLeft= totalTime
+                        timeLeft = totalTime
                         isPaused = true
                     }) {
                         Icon(
@@ -197,12 +219,12 @@ fun PomodoroScreen(
 
 @Composable
 private fun DrawCircularProgress(
-    text:String,
-    progress:Float = 10f,
+    text: String,
+    progress: Float = 10f,
     modifier: Modifier = Modifier
 ) {
 
-    val progressMax:Float = 100f
+    val progressMax: Float = 100f
 
     val textMeasure = rememberTextMeasurer()
     val style = TextStyle(
@@ -227,7 +249,7 @@ private fun DrawCircularProgress(
         drawArc(
             brush = TimerLinearGradient,
             startAngle = -90f,
-            sweepAngle = (progress/progressMax)*360f,
+            sweepAngle = (progress / progressMax) * 360f,
             useCenter = false,
             style = Stroke(16.dp.toPx(), cap = StrokeCap.Round)
         )
@@ -251,14 +273,13 @@ private fun PomodoroScreenPreview() {
             id = 1,
             title = "Learn Kotlin",
             isCompleted = false,
-            startTime = LocalTime.of(0,3,0),
-            endTime = LocalTime.of(0,5,0),
+            startTime = LocalTime.of(0, 3, 0),
+            endTime = LocalTime.of(0, 5, 0),
             reminder = true,
             category = "",
             priority = 0
-
-        )
-        , onBack = { /*TODO*/ })
-
+        ), onBack = { /*TODO*/ },
+        onEvent = {}
+    )
 
 }
