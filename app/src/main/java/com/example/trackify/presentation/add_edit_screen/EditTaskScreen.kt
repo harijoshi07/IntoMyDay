@@ -198,8 +198,6 @@ fun EditTaskScreen(
                         Spacer(modifier = Modifier.height(8.dp))
                         WheelTimePicker(
                             startTime = task.startTime,
-                            minTime = LocalTime.now(),
-                            maxTime = LocalTime.MAX,
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
@@ -216,8 +214,6 @@ fun EditTaskScreen(
                         Spacer(modifier = Modifier.height(8.dp))
                         WheelTimePicker(
                             startTime = task.endTime,
-                            minTime = LocalTime.now().plusMinutes(5),
-                            maxTime = LocalTime.MAX,
                             timeFormat = TimeFormat.AM_PM,
                             textColor = Color.White
                         ) {
