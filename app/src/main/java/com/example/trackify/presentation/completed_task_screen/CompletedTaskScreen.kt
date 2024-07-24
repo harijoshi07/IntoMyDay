@@ -41,7 +41,7 @@ fun CompletedTaskScreen(
 ) {
 
     val completedTasks = mutableListOf<Task>()
-    tasks.filter { it.isCompleted }
+    tasks.filterTo(completedTasks) { it.isCompleted }
 
     Scaffold(topBar = {
         TopAppBar(

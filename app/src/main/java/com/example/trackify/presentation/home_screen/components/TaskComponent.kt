@@ -77,7 +77,7 @@ fun TaskComponent(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 IconButton(
-                    onClick = { /*TODO*/ },
+                    onClick = {onComplete(task.id) },
                     modifier = Modifier.size(32.dp)
                 ) {
                     if (task.isCompleted) {
@@ -144,7 +144,8 @@ fun TaskComponent(
                             Icon(
                                 painter = painterResource(id = R.drawable.timer),
                                 contentDescription = null,
-                                tint = LightGray
+                                tint = LightGray,
+                                modifier = Modifier.size(30.dp)
                             )
                         }
                     }

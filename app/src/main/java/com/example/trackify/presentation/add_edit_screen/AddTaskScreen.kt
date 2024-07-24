@@ -237,7 +237,7 @@ fun AddTaskScreen(
                 ){
                     PriorityComponent(
                         title ="High",
-                        backgroundColor = LightGray,
+                        backgroundColor = Color.LightGray,
                         modifier = Modifier.weight(0.3f),
                         onClick = {taskPriority=0}
                     )
