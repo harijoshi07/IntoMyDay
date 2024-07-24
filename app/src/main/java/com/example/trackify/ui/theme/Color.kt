@@ -18,7 +18,6 @@ val Red = Color(0xFFEB8080)
 val Green = Color(0xFFC7E9A7)
 val Blue = Color(0xFF83BCFF)
 val Yellow = Color(0xFFFF9737)
-val LightGray = Color(0xFFCCD2D8)
 
 // Timer Screen Colors
 val TimerDarkColor = Color(0XFF070417)
@@ -29,3 +28,8 @@ val TimerGrayColor = Color(0XFF989898)
 val TimerLinearGradient = Brush.linearGradient(
     listOf(Color.White, Color(0XFF7012CE), Color(0XFF7012CE))
 )
+
+//Dark Amoled Screen
+val LightGray = Color(0xFFCCD2D8)
+val Black500 = Color(0xFF000000)
+val Black200 = Color(0xFF252526)
